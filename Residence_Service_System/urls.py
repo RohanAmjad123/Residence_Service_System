@@ -1,4 +1,4 @@
-"""CPSC_471_Project_RESTApi URL Configuration
+"""Residence_Service_System URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/

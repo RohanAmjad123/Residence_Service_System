@@ -1,5 +1,5 @@
 """
-WSGI config for CPSC_471_Project_RESTApi project.
+WSGI config for Residence_Service_System project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'CPSC_471_Project_RESTApi.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Residence_Service_System.settings')
 
 application = get_wsgi_application()
