@@ -14,3 +14,7 @@ class BuildingViewSet(viewsets.ModelViewSet):
     queryset = models.Building.objects.all()
     serializer_class = serializers.BuildingSerializer
 
+class RoomViewSet(viewsets.ModelViewSet):
+    queryset = models.Room.objects.all()
+    serializer_class = serializers.RoomSerializer
+

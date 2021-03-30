@@ -12,3 +12,8 @@ class BuildingSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Building
         fields = '__all__'
+
+class RoomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Room
+        fields = '__all__'
