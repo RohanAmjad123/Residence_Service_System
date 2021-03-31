@@ -48,6 +48,26 @@ class ResolvesSerializer(serializers.ModelSerializer):
         model = models.Resolves
         fields = '__all__'
 
+class ComplaintSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Complaint
+        fields = '__all__'
+
+class FoodOrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.FoodOrder
+        fields = '__all__'
+
+class FulfillsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Fulfills
+        fields = '__all__'
+
+class PackageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Package
+        fields = '__all__'
+
 
 
 

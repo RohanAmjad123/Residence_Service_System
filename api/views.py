@@ -42,3 +42,15 @@ class ResolvesViewSet(viewsets.ModelViewSet):
     queryset = models.Resolves.objects.all()
     serializer_class = serializers.ResolvesSerializer
 
+class ComplaintViewSet(viewsets.ModelViewSet):
+    queryset = models.Complaint.objects.all()
+    serializer_class = serializers.ComplaintSerializer
+
+class FulfillsViewSet(viewsets.ModelViewSet):
+    queryset = models.Fulfills.objects.all()
+    serializer_class = serializers.FulfillsSerializer
+
+class PackageViewSet(viewsets.ModelViewSet):
+    queryset = models.Package.objects.all()
+    serializer_class = serializers.PackageSerializer
+
