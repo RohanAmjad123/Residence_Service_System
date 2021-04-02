@@ -37,9 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    # third party apps
     'rest_framework',
+    'corsheaders',
+    
+    # local apps
     'api',
-    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -54,7 +58,9 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost:8000',
+    'http://localhost:8000', 
+    'http://localhost:3000', # Default React client 
+    'http://localhost:8080', # Default Vue client
 )
 
 ROOT_URLCONF = 'Residence_Service_System.urls'
@@ -127,3 +133,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated', # make all endpoints private
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
