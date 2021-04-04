@@ -1,8 +1,10 @@
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt import views as jwt_views
+from api.views import frontpage
 
 urlpatterns = [
+    path('', frontpage, name='frontpage'),
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
