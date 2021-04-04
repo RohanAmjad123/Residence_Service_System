@@ -2,6 +2,8 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from . import models
 from . import serializers
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 # Create your views here (API Endpoints).
 
@@ -34,6 +36,9 @@ class RoomViewSet(viewsets.ModelViewSet):
     queryset = models.Room.objects.all()
     serializer_class = serializers.RoomSerializer
 
+    def get_queryset(self):
+        return models.Room.objects.filter(building_id=self.kwargs['building_pk'])
+
 class MaintenanceRequestViewSet(viewsets.ModelViewSet):
     queryset = models.MaintenanceRequest.objects.all()
     serializer_class = serializers.MaintenanceRequestSerializer
@@ -42,13 +47,23 @@ class ResolvesViewSet(viewsets.ModelViewSet):
     queryset = models.Resolves.objects.all()
     serializer_class = serializers.ResolvesSerializer
 
+    def get_queryset(self):
+        return models.Resolves.objects.filter(request_id=self.kwargs['maintreq_pk'])
+
 class ComplaintViewSet(viewsets.ModelViewSet):
     queryset = models.Complaint.objects.all()
     serializer_class = serializers.ComplaintSerializer
 
+class FoodOrderViewSet(viewsets.ModelViewSet):
+    queryset = models.FoodOrder.objects.all()
+    serializer_class = serializers.FoodOrderSerializer
+
 class FulfillsViewSet(viewsets.ModelViewSet):
     queryset = models.Fulfills.objects.all()
     serializer_class = serializers.FulfillsSerializer
+
+    def get_queryset(self):
+        return models.Fulfills.objects.filter(food_order_id=self.kwargs['foodorder_pk'])
 
 class PackageViewSet(viewsets.ModelViewSet):
     queryset = models.Package.objects.all()
