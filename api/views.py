@@ -72,20 +72,22 @@ class PackageViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.PackageSerializer
 
 def frontpage(request):
-    return render(request, 'residentSystem/base.html')
+    return render(request, 'residentSystem/frontpage.html')
 
 
 
-#def signup(request):
-   # if (request.method == 'POST')
- #       form = UserCreationForm(request.POST)
+def signup(request):
+    form = UserCreationForm()
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
 
-  #  if form.is_valid():
-  #      user = form.save()
-  #      login(request,user)
+    if form.is_valid():
+        user = form.save()
+        login(request,user)
 
- #       return redirect('frontpage')
- #   else:
- #       form = UserCreationForm()
- #   return render(request, 'residentSystem/signup.html', {'form':})
+        return redirect('frontpage')
+    else:
+        form = UserCreationForm()
+
+    return render(request, 'residentSystem/signup.html', {'form': form})
  
