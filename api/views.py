@@ -46,6 +46,10 @@ class ComplaintViewSet(viewsets.ModelViewSet):
     queryset = models.Complaint.objects.all()
     serializer_class = serializers.ComplaintSerializer
 
+class FoodOrderViewSet(viewsets.ModelViewSet):
+    queryset = models.FoodOrder.objects.all()
+    serializer_class = serializers.FoodOrderSerializer
+
 class FulfillsViewSet(viewsets.ModelViewSet):
     queryset = models.Fulfills.objects.all()
     serializer_class = serializers.FulfillsSerializer

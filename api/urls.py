@@ -15,6 +15,7 @@ router.register('rooms', views.RoomViewSet)
 router.register('maintreqs', views.MaintenanceRequestViewSet)
 router.register('resolves', views.ResolvesViewSet)
 router.register('complaints', views.ComplaintViewSet)
+router.register('foodorders', views.FoodOrderViewSet)
 router.register('fulfills', views.FulfillsViewSet)
 router.register('packages', views.PackageViewSet)
 
