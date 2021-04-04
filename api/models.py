@@ -21,19 +21,16 @@ class Staff(models.Model):
     password = models.CharField(max_length=50)
 
 # Technician model
-class Technician(models.Model):
-    technician_id = models.ForeignKey(Staff, on_delete=models.CASCADE)
+class Technician(Staff):
     specialization = models.CharField(max_length=50)
 
 # Admin model
-class Admin(models.Model):
-    admin_id = models.ForeignKey(Staff, on_delete=models.CASCADE)
+class Admin(Staff):
     access_level = models.IntegerField()
 
 
 # Chef model
-class Chef(models.Model):
-    chef_id = models.ForeignKey(Staff, on_delete=models.CASCADE)
+class Chef(Staff):
     position = models.CharField(max_length=50)
 
 # Building model
