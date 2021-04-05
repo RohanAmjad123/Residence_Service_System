@@ -1,0 +1,23 @@
+{
+  "name": "cpsc-471-project-restapi",
+  "version": "1.0.0",
+  "description": "A web app for students and staff to submit, manage, and view complaints, maintenance requests, food orders, and packages.",
+  "main": "index.js",
+  "dependencies": {
+    "bulma": "^0.9.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RohanAmjad123/Residence_Service_System.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RohanAmjad123/Residence_Service_System/issues"
+  },
+  "homepage": "https://github.com/RohanAmjad123/Residence_Service_System#readme"
+}

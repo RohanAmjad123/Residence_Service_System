@@ -1,0 +1,68 @@
+{% extends 'residentSystem/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1 class="title">Student Dashboard</h1>
+
+
+        <div class = "columns">
+            <div class ="column is-3">
+                <div class = "card card-link">
+                    <div class ="card-content">
+                        <div class = "media">
+                            <div class = "media-content">
+                                <p class = "title is-4">Food Orders</p>
+                            </div>
+                        </div>
+                      <div class = "content">
+                          This is the link desc
+                      </div>
+                      </div>
+
+                      <footer class="card-footer">
+                          <a href = "{% url 'foodOrder' %}" class = "card-footer-item" target="_self">Add a food request</a>
+                          <a href = "{% url 'foodOrder' %}" class = "card-footer-item" target="_self">View my Orders</a>
+                      </footer>
+                    </div>
+                </div>
+                <div class ="column is-3">
+                    <div class = "card card-link">
+                        <div class ="card-content">
+                            <div class = "media">
+                                <div class = "media-content">
+                                    <p class = "title is-4">Complaints</p>
+                                </div>
+                            </div>
+                          <div class = "content">
+                              This is the link desc
+                          </div>
+                          </div>
+    
+                          <footer class="card-footer">
+                              <a href = "#" class = "card-footer-item" target="_blank">Visit</a>
+                              <a href = "#" class = "card-footer-item">Edit</a>
+                          </footer>
+                        </div>
+                    </div>
+                    <div class ="column is-3">
+                        <div class = "card card-link">
+                            <div class ="card-content">
+                                <div class = "media">
+                                    <div class = "media-content">
+                                        <p class = "title is-4">Maintenance Requests</p>
+                                    </div>
+                                </div>
+                              <div class = "content">
+                                  This is the link desc
+                              </div>
+                              </div>
+        
+                              <footer class="card-footer">
+                                  <a href = "#" class = "card-footer-item" target="_blank">Visit</a>
+                                  <a href = "#" class = "card-footer-item">Edit</a>
+                              </footer>
+                            </div>
+                        </div>
+            </div>
+    </div>
+    {% endblock %}
