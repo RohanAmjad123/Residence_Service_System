@@ -5,6 +5,7 @@ from api.views import frontpage, signup
 from django.contrib.auth import views
 
 urlpatterns = [
+    path('app/', include('api.dashboard.urls')),
     path('', frontpage, name='frontpage'),
     path('signup/', signup, name='signup'),
     path('admin/', admin.site.urls),

@@ -6,6 +6,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here (API Endpoints).
 
@@ -75,7 +76,6 @@ def frontpage(request):
     return render(request, 'residentSystem/frontpage.html')
 
 
-
 def signup(request):
     form = UserCreationForm()
     if request.method == 'POST':
@@ -90,4 +90,3 @@ def signup(request):
         form = UserCreationForm()
 
     return render(request, 'residentSystem/signup.html', {'form': form})
- 
