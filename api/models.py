@@ -46,7 +46,7 @@ class Room(models.Model):
     room_id = models.AutoField(primary_key=True)
     building_id = models.ForeignKey(Building, on_delete=models.CASCADE)
     room_no = models.CharField(max_length=10)
-    student_id = models.ForeignKey(Student, on_delete=models.SET_NULL, null=True)
+    student_id = models.OneToOneField(Student, on_delete=models.SET_NULL, null=True)
 
     # building_id and room_no pairs are enforced with a unique constraint
     class Meta:
@@ -58,7 +58,6 @@ class Room(models.Model):
 class MaintenanceRequest(models.Model):
     request_id = models.AutoField(primary_key=True)
     description = models.CharField(max_length=200)
-    building_id = models.ForeignKey(Room, related_name='building', on_delete=models.CASCADE)
     room_id = models.ForeignKey(Room, related_name='room', on_delete=models.CASCADE)
     student_id = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
     submit_date_time = models.DateTimeField(auto_now_add=True)
