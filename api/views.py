@@ -1,13 +1,15 @@
-from rest_framework import viewsets, generics
+from rest_framework import viewsets
 from . import models
 from . import serializers
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 
 # Registration ViewSets
 class StudentRegistrationViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.StudentCustomRegistrationSerializer
     queryset = models.Student.objects.all()
     http_method_names = ['post']
+    permission_classes = [AllowAny]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -24,6 +26,7 @@ class StaffRegistrationViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.StaffCustomRegistrationSerializer
     queryset = models.Staff.objects.all()
     http_method_names = ['post']
+    permission_classes = [AllowAny]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -40,6 +43,7 @@ class TechnicianRegistrationViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.TechnicianCustomRegistrationSerializer
     queryset = models.Technician.objects.all()
     http_method_names = ['post']
+    permission_classes = [AllowAny]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -56,6 +60,7 @@ class AdminRegistrationViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.AdminCustomRegistrationSerializer
     queryset = models.Admin.objects.all()
     http_method_names = ['post']
+    permission_classes = [AllowAny]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -72,6 +77,7 @@ class ChefRegistrationViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.ChefCustomRegistrationSerializer
     queryset = models.Chef.objects.all()
     http_method_names = ['post']
+    permission_classes = [AllowAny]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -118,9 +124,6 @@ class RoomViewSet(viewsets.ModelViewSet):
     queryset = models.Room.objects.all()
     serializer_class = serializers.RoomSerializer
 
-    def get_queryset(self):
-        return models.Room.objects.filter(building_id=self.kwargs['building_pk'])
-
 class MaintenanceRequestViewSet(viewsets.ModelViewSet):
     queryset = models.MaintenanceRequest.objects.all()
     serializer_class = serializers.MaintenanceRequestSerializer
@@ -128,9 +131,6 @@ class MaintenanceRequestViewSet(viewsets.ModelViewSet):
 class ResolvesViewSet(viewsets.ModelViewSet):
     queryset = models.Resolves.objects.all()
     serializer_class = serializers.ResolvesSerializer
-
-    def get_queryset(self):
-        return models.Resolves.objects.filter(request_id=self.kwargs['maintreq_pk'])
 
 class ComplaintViewSet(viewsets.ModelViewSet):
     queryset = models.Complaint.objects.all()
@@ -143,9 +143,6 @@ class FoodOrderViewSet(viewsets.ModelViewSet):
 class FulfillsViewSet(viewsets.ModelViewSet):
     queryset = models.Fulfills.objects.all()
     serializer_class = serializers.FulfillsSerializer
-
-    def get_queryset(self):
-        return models.Fulfills.objects.filter(food_order_id=self.kwargs['foodorder_pk'])
 
 class PackageViewSet(viewsets.ModelViewSet):
     queryset = models.Package.objects.all()
