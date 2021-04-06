@@ -1,10 +1,6 @@
 from rest_framework import viewsets, generics
 from . import models
 from . import serializers
-<<<<<<< HEAD
-=======
-from rest_framework.decorators import action
->>>>>>> 47abc6cb17f5ceb55a7928360fc421f0dee301ed
 from rest_framework.response import Response
 
 # Registration ViewSets
