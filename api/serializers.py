@@ -136,7 +136,7 @@ class RoomSerializer(serializers.ModelSerializer):
         model = models.Room
         fields = '__all__'
 
-class RoomInBuildingSerializer(serializers.ModelSerializer):
+class RoomPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Room
         fields = ['room_no']
@@ -150,6 +150,11 @@ class MaintenanceRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.MaintenanceRequest
         fields = '__all__'
+
+class MaintenanceRequestPostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.MaintenanceRequest
+        fields = ['description', 'student_id']
 
 class ResolvesSerializer(serializers.ModelSerializer):
     class Meta:
