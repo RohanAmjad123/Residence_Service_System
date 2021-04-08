@@ -19,12 +19,12 @@ router.register('complaints', views.ComplaintViewSet)
 router.register('foodorders', views.FoodOrderViewSet)
 router.register('fulfills', views.FulfillsViewSet)
 router.register('packages', views.PackageViewSet)
-router.register('register/student', views.StudentRegistrationViewSet)
-router.register('register/staff', views.StaffRegistrationViewSet)
-router.register('register/technician', views.TechnicianRegistrationViewSet)
-router.register('register/admin', views.AdminRegistrationViewSet)
-router.register('register/chef', views.ChefRegistrationViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path(r'register/student/', views.StudentRegistrationViewSet.as_view({'post': 'create'})),
+    path(r'register/staff/', views.StaffRegistrationViewSet.as_view({'post': 'create'})),
+    path(r'register/technician/', views.TechnicianRegistrationViewSet.as_view({'post': 'create'})),
+    path(r'register/admin/', views.AdminRegistrationViewSet.as_view({'post': 'create'})),
+    path(r'register/chef/', views.ChefRegistrationViewSet.as_view({'post': 'create'})),
 ] 
