@@ -76,27 +76,52 @@ class ChefCustomRegistrationSerializer(serializers.ModelSerializer):
         return chef
 
 # General Serializers
-class StudentSerializer(serializers.ModelSerializer):
+class StudentSerializer(serializers.ModelSerializer): 
+    first_name = serializers.CharField(source='user.first_name')
+    last_name = serializers.CharField(source='user.last_name')
+    email = serializers.CharField(source='user.email')
+
     class Meta:
         model = models.Student
         fields = '__all__'
 
+class StudentPatchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Student
+        fields = ['phone_num']
+
 class StaffSerializer(serializers.ModelSerializer):
+    first_name = serializers.CharField(source='user.first_name')
+    last_name = serializers.CharField(source='user.last_name')
+    email = serializers.CharField(source='user.email')
+
     class Meta:
         model = models.Staff
         fields = '__all__'
     
 class TechnicianSerializer(serializers.ModelSerializer):
+    first_name = serializers.CharField(source='user.first_name')
+    last_name = serializers.CharField(source='user.last_name')
+    email = serializers.CharField(source='user.email')
+    
     class Meta:
         model = models.Technician
         fields = '__all__'
 
 class AdminSerializer(serializers.ModelSerializer):
+    first_name = serializers.CharField(source='user.first_name')
+    last_name = serializers.CharField(source='user.last_name')
+    email = serializers.CharField(source='user.email')
+    
     class Meta:
         model = models.Admin
         fields = '__all__'
 
 class ChefSerializer(serializers.ModelSerializer):
+    first_name = serializers.CharField(source='user.first_name')
+    last_name = serializers.CharField(source='user.last_name')
+    email = serializers.CharField(source='user.email')
+    
     class Meta:
         model = models.Chef
         fields = '__all__'
@@ -110,6 +135,16 @@ class RoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Room
         fields = '__all__'
+
+class RoomInBuildingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Room
+        fields = ['room_no']
+
+class RoomPatchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Room
+        fields = ['student_id']
 
 class MaintenanceRequestSerializer(serializers.ModelSerializer):
     class Meta:

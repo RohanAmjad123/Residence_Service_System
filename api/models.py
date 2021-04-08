@@ -105,7 +105,7 @@ class Room(models.Model):
 class MaintenanceRequest(models.Model):
     request_id = models.AutoField(primary_key=True)
     description = models.CharField(max_length=200)
-    room_id = models.ForeignKey(Room, related_name='room', on_delete=models.CASCADE)
+    room_id = models.ForeignKey(Room, related_name='room', on_delete=models.CASCADE, null=False)
     student_id = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
     submit_date_time = models.DateTimeField(auto_now_add=True)
 
