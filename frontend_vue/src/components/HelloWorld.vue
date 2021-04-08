@@ -4,9 +4,8 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
-  props: {
-  }
+  name: 'HelloWorld'
+  
 }
 </script>
 
