@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # third party apps
     'rest_framework',
     'corsheaders',
+    'drf_spectacular',
     
     # local apps
     'api',
@@ -134,14 +135,15 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated', # make all endpoints private
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    
+    #DEFAULT_PERMISSION_CLASSES': (
+    #   'rest_framework.permissions.IsAuthenticated', # make all endpoints private
+    #),
+    #'DEFAULT_AUTHENTICATION_CLASSES': [
+    #    'rest_framework_simplejwt.authentication.JWTAuthentication',
+    #],
 }
 
 AUTH_USER_MODEL = 'api.CustomUser'
