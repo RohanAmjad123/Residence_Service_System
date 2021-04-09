@@ -311,6 +311,7 @@ class ChefViewSet(viewsets.ModelViewSet):
 class BuildingViewSet(viewsets.ModelViewSet):
     queryset = models.Building.objects.all()
     serializer_class = serializers.BuildingSerializer
+    http_method_names = ['get', 'post', 'patch']
 
     @action(detail=True, methods=['get', 'post'])
     def rooms(self, request, pk=None):
@@ -376,7 +377,7 @@ class RoomViewSet(viewsets.ModelViewSet):
             if empty == True or empty == False:
                 queryset = queryset.filter(student_id__isnull=empty)
             
-            if sort_by is not None:
+            if sort_by is [f.name for f in models.Room._meta.fields]:
                 queryset = queryset.order_by(sort_by)
             
             return queryset
@@ -447,4 +448,5 @@ class FoodOrderViewSet(viewsets.ModelViewSet):
 class PackageViewSet(viewsets.ModelViewSet):
     queryset = models.Package.objects.all()
     serializer_class = serializers.PackageSerializer
+    http_method_names = ['get', 'post']
 

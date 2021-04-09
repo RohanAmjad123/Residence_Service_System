@@ -1,0 +1,159 @@
+REGISTRATION
+
+register staff: POST
+api/register/staff
+
+register student: POST
+api/register/student
+
+register technician: POST
+api/register/technician
+
+register admin: POST
+api/register/admin
+
+register chef: POST
+api/register/chef
+
+STUDENTS
+
+students list: GET
+api/students/
+    query params: 
+        ?without_room: true, false, True, False
+
+student detail: GET, PATCH
+api/students/{student_id}/
+
+students room: GET
+api/students/{student_id}/room/
+
+students maintreqs: GET
+api/students/{student_id}/maintreqs/
+    query params:
+        ?resolved: true, false, True, False
+
+students complaints: GET
+api/students/{student_id}/complaints/
+    query params:
+        ?resolved: true, false, True, False
+
+students food orders: GET 
+api/students/{student_id}/foodsorts/
+    query params:
+        ?fulfilled: true, false, True, False
+
+students packages: GET 
+api/students/{student_id}/packages/
+
+STAFF
+
+staff list: GET
+api/staff/
+
+staff detail: GET, PATCH 
+api/staff/{staff_id}/
+
+TECHNICIANS
+
+technicans list: GET
+api/technicians
+
+technician detail: GET, PATCH
+api/technician/{staff_id}/
+
+technicians maintreqs: GET
+api/technician/{staff_id}/maintreqs/
+    query params:
+        ?resolved: true, false, True, False 
+
+ADMIN 
+
+admin list: GET
+api/admins/
+
+admin detail: GET, PATCH
+api/admins/{staff_id}/
+
+admin complaints: GET
+api/admins/{staff_id}/complaints/
+    query params:
+        ?resolved: true, false, True, False
+
+CHEF 
+
+admin list: GET
+api/chefs/
+
+admin detail: GET, PATCH
+api/chefs/{staff_id}/
+
+chef foodorders: GET
+api/chefs/{staff_id}/foodorders/
+    query params:
+        ?fulfilled: true, false, True, False
+
+BUILING
+
+building list: GET, POST, PATCH
+api/builings/
+
+building detail: GET, PATCH 
+api/builings/{builing_id}/
+
+builing rooms: GET, POST 
+api/buildings/{building_id}/rooms/
+    query param:
+        ?empty: true, false, True, False 
+
+ROOM 
+
+room list: GET  
+api/rooms/
+    query params:
+        ?empty: true, false, True, False  
+        ?sort_by: room_id, building_id, room_no, student_id  
+
+room detail: GET, PATCH
+api/rooms/{room_id}/
+
+MAINTENANCE REQUEST
+
+maintreqs list: GET, POST  
+api/maintreqs/
+    query params:
+        ?resolved: true, false, True, False  
+
+maintreqs detail: GET, PATCH
+api/maintreqs/{request_id}/
+
+COMPLAINT 
+
+complaint list: GET, POST  
+api/complaints/
+    query params:
+        ?resolved: true, false, True, False  
+
+complaint detail: GET, PATCH
+api/complaints/{complaint_id}/
+
+FOOD ORDER
+
+maintreqs list: GET, POST  
+api/foodorders/
+    query params:
+        ?resolved: true, false, True, False  
+
+foodorders detail: GET, PATCH
+api/foodorders/{order_id}/
+
+PACKAGES
+
+packages list: GET, POST  
+api/packages/
+
+packages detail: GET
+api/packages/{package_id}/
+
+
+
