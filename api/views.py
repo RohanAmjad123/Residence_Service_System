@@ -109,7 +109,6 @@ class StudentViewSet(viewsets.ModelViewSet):
         if self.request.method == 'GET':
             students = models.Student.objects.all()
             without_room = self.request.GET.get('without_room', None)
-            order_students_by = self.request.GET.get('order_students_by', None)
 
             if without_room == 'true' or without_room == 'True':
                 without_room = True
@@ -121,9 +120,6 @@ class StudentViewSet(viewsets.ModelViewSet):
             if without_room == True or without_room == False:
                 students = students.filter(room__isnull=without_room)
             
-            if order_students_by in [f.name for f in models.Student._meta.fields]:
-                students = students.order_by(order_students_by)
-
             return students
 
         return models.Student.objects.all()
@@ -142,7 +138,6 @@ class StudentViewSet(viewsets.ModelViewSet):
     def maintreqs(self, request, pk=None):
         reqs = models.MaintenanceRequest.objects.filter(student_id=pk)
         resolved = request.GET.get('resolved', None)
-        order_reqs_by = request.GET.get('order_reqs_by', None)
 
         if resolved == 'true' or resolved == 'True':
             resolved = True
@@ -151,23 +146,31 @@ class StudentViewSet(viewsets.ModelViewSet):
         else:
             resolved = ' '
 
-        if resolved == True or resolved == False:
-            reqs = models.MaintenanceRequest.objects.exclude(resolves__isnull=resolved)
+        if resolved == True:
+            reqs = reqs.filter(status='RESOLVED')
+        if resolved == False:
+            reqs = reqs.exclude(status='RESOLVED')
 
-        if order_reqs_by in [f.name for f in models.Student._meta.fields]:
-            reqs = reqs.order_by(order_reqs_by)
-            
         serializer = serializers.MaintenanceRequestSerializer(reqs, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(detail=True, methods=['get'])
     def complaints(self, request, pk=None):
         complaints = models.Complaint.objects.filter(student_id=pk)
-        order_complaints_by = request.GET.get('order_complaints_by', None)
+        resolved = request.GET.get('resolved', None)
 
-        if order_complaints_by in [f.name for f in models.Complaint._meta.fields]:
-            complaints = complaints.order_by(order_complaints_by)
-            
+        if resolved == 'true' or resolved == 'True':
+            resolved = True
+        elif resolved == 'false' or resolved == 'False':
+            resolved = False
+        else:
+            resolved = ' '
+
+        if resolved == True:
+            complaints = complaints.filter(status='RESOLVED')
+        if resolved == False:
+            complaints = complaints.exclude(status='RESOLVED')
+
         serializer = serializers.ComplaintSerializer(complaints, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -175,7 +178,6 @@ class StudentViewSet(viewsets.ModelViewSet):
     def foodorders(self, request, pk=None):
         orders = models.FoodOrder.objects.filter(student_id=pk)
         fulfilled = request.GET.get('fulfilled', None)
-        order_foodorders_by = request.GET.get('order_foodorders_by', None)
 
         if fulfilled == 'true' or fulfilled == 'True':
             fulfilled = True
@@ -184,23 +186,17 @@ class StudentViewSet(viewsets.ModelViewSet):
         else:
             fulfilled = ' '
 
-        if fulfilled == True or fulfilled == False:
-            orders = models.FoodOrder.objects.exclude(fulfills__isnull=fulfilled)
+        if fulfilled == True:
+            orders = orders.filter(status='FULFILLED')
+        if fulfilled == False:
+            orders = orders.exclude(status='FULFILLED')
 
-        if order_foodorders_by in [f.name for f in models.Fulfills._meta.fields]:
-            orders = orders.order_by(order_foodorders_by)
-            
         serializer = serializers.FoodOrderSerializer(orders, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     @action(detail=True, methods=['get'])
     def packages(self, request, pk=None):
-        packages = models.Package.objects.filter(student_id=pk)
-        order_packages_by = request.GET.get('order_packages_by', None)
-
-        if order_packages_by in [f.name for f in models.Package._meta.fields]:
-            packages = packages.order_by(order_packages_by)
-            
+        packages = models.Package.objects.filter(student_id=pk) 
         serializer = serializers.PackageSerializer(packages, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -209,20 +205,108 @@ class StaffViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.StaffSerializer
     http_method_names = ['get', 'patch']
 
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return serializers.StaffSerializer
+        if self.request.method == 'PATCH':
+            return serializers.StaffPatchSerializer
+        return serializers.StudentSerializer
+
 class TechnicianViewSet(viewsets.ModelViewSet):
     queryset = models.Technician.objects.all()
     serializer_class = serializers.TechnicianSerializer
     http_method_names = ['get', 'patch']
+
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return serializers.TechnicianSerializer
+        if self.request.method == 'PATCH':
+            return serializers.TechnicianPatchSerializer
+        return serializers.StudentSerializer
+
+    @action(detail=True, methods=['get'])
+    def maintreqs(self, request, pk=None):
+        reqs = models.MaintenanceRequest.objects.filter(technician_id=pk)
+        resolved = request.GET.get('resolved', None)
+
+        if resolved == 'true' or resolved == 'True':
+            resolved = True
+        elif resolved == 'false' or resolved == 'False':
+            resolved = False
+        else:
+            resolved = ' '
+
+        if resolved == True:
+            reqs = reqs.filter(status='RESOLVED')
+        if resolved == False:
+            reqs = reqs.exclude(status='RESOLVED')
+
+        serializer = serializers.MaintenanceRequestSerializer(reqs, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class AdminViewSet(viewsets.ModelViewSet):
     queryset = models.Admin.objects.all()
     serializer_class = serializers.AdminSerializer
     http_method_names = ['get', 'patch']
 
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return serializers.AdminSerializer
+        if self.request.method == 'PATCH':
+            return serializers.AdminPatchSerializer
+        return serializers.StudentSerializer
+
+    @action(detail=True, methods=['get'])
+    def complaints(self, request, pk=None):
+        complaints = models.Complaint.objects.filter(admin_id=pk)
+        resolved = request.GET.get('resolved', None)
+
+        if resolved == 'true' or resolved == 'True':
+            resolved = True
+        elif resolved == 'false' or resolved == 'False':
+            resolved = False
+        else:
+            resolved = ' '
+
+        if resolved == True:
+            complaints = complaints.filter(status='RESOLVED')
+        if resolved == False:
+            complaints = complaints.exclude(status='RESOLVED')
+
+        serializer = serializers.ComplaintSerializer(complaints, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 class ChefViewSet(viewsets.ModelViewSet):
     queryset = models.Chef.objects.all()
     serializer_class = serializers.ChefSerializer
     http_method_names = ['get', 'patch']
+
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return serializers.ChefSerializer
+        if self.request.method == 'PATCH':
+            return serializers.ChefPatchSerializer
+        return serializers.StudentSerializer
+
+    @action(detail=True, methods=['get'])
+    def foodorders(self, request, pk=None):
+        orders = models.FoodOrder.objects.filter(chef_id=pk)
+        fulfilled = request.GET.get('fulfilled', None)
+
+        if fulfilled == 'true' or fulfilled == 'True':
+            fulfilled = True
+        elif fulfilled == 'false' or fulfilled == 'False':
+            fulfilled = False
+        else:
+            fulfilled = ' '
+
+        if fulfilled == True:
+            orders = orders.filter(status='FULFILLED')
+        if fulfilled == False:
+            orders = orders.exclude(status='FULFILLED')
+
+        serializer = serializers.FoodOrderSerializer(orders, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class BuildingViewSet(viewsets.ModelViewSet):
     queryset = models.Building.objects.all()
@@ -279,7 +363,7 @@ class RoomViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         if self.request.method == 'GET':
             queryset = models.Room.objects.all()
-            order_by = self.request.GET.get('order_by', None)
+            sort_by = self.request.GET.get('sort_by', None)
             empty = self.request.GET.get('empty', None)
 
             if empty == 'true' or empty == 'True':
@@ -292,8 +376,8 @@ class RoomViewSet(viewsets.ModelViewSet):
             if empty == True or empty == False:
                 queryset = queryset.filter(student_id__isnull=empty)
             
-            if order_by is not None:
-                queryset = queryset.order_by(order_by)
+            if sort_by is not None:
+                queryset = queryset.order_by(sort_by)
             
             return queryset
 
@@ -302,26 +386,28 @@ class RoomViewSet(viewsets.ModelViewSet):
 class MaintenanceRequestViewSet(viewsets.ModelViewSet):
     queryset = models.MaintenanceRequest.objects.all()
     serializer_class = serializers.MaintenanceRequestSerializer
+    http_method_names = ['get', 'patch', 'post']
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
             return serializers.MaintenanceRequestPostSerializer
         if self.request.method == 'GET':
             return serializers.MaintenanceRequestSerializer
+        if self.request.method == 'PATCH':
+            return serializers.MaintenanceRequestPatchSerializer
         return serializers.MaintenanceRequestSerializer
 
     def create(self, request):
-        student = request.data['student_id']
-        print(student)
         try: 
-            room = models.Room.objects.get(student_id=student)
+            room = models.Room.objects.get(student_id=request.data['student_id'])
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
         data = {
             'description': request.data['description'], 
             'room_id': room.room_id,
-            'student_id': request.data['student_id']
+            'student_id': request.data['student_id'],
+            'urgency_rating': request.data['urgency_rating']
         }
 
         serializer = serializers.MaintenanceRequestSerializer(data=data)
@@ -330,21 +416,33 @@ class MaintenanceRequestViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
-class ResolvesViewSet(viewsets.ModelViewSet):
-    queryset = models.Resolves.objects.all()
-    serializer_class = serializers.ResolvesSerializer
-
 class ComplaintViewSet(viewsets.ModelViewSet):
     queryset = models.Complaint.objects.all()
     serializer_class = serializers.ComplaintSerializer
+    http_method_names = ['get', 'patch', 'post']
+
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return serializers.ComplaintPostSerializer
+        if self.request.method == 'GET':
+            return serializers.ComplaintSerializer
+        if self.request.method == 'PATCH':
+            return serializers.ComplaintPatchSerializer
+        return serializers.ComplaintSerializer
 
 class FoodOrderViewSet(viewsets.ModelViewSet):
     queryset = models.FoodOrder.objects.all()
     serializer_class = serializers.FoodOrderSerializer
+    http_method_names = ['get', 'patch', 'post']
 
-class FulfillsViewSet(viewsets.ModelViewSet):
-    queryset = models.Fulfills.objects.all()
-    serializer_class = serializers.FulfillsSerializer
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return serializers.FoodOrderPostSerializer
+        if self.request.method == 'GET':
+            return serializers.FoodOrderSerializer
+        if self.request.method == 'PATCH':
+            return serializers.FoodOrderPatchSerializer
+        return serializers.FoodOrderSerializer
 
 class PackageViewSet(viewsets.ModelViewSet):
     queryset = models.Package.objects.all()

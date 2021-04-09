@@ -103,19 +103,11 @@ class Room(models.Model):
 
 # Maintenance Request model
 class MaintenanceRequest(models.Model):
-    request_id = models.AutoField(primary_key=True)
-    description = models.CharField(max_length=200)
-    room_id = models.ForeignKey(Room, related_name='room', on_delete=models.CASCADE, null=False)
-    student_id = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
-    submit_date_time = models.DateTimeField(auto_now_add=True)
-
-# Resolves model
-class Resolves(models.Model):
     STATUS = (
         ('RESOLVED', 'RESOLVED'), 
         ('IN PROGRESS', 'IN PROGRESS'),
+        ('UNRESOLVED', 'UNRESOLVED'),
     )
-
     URGENCY_RATING = (
         ('1','1'),
         ('2','2'),
@@ -123,27 +115,23 @@ class Resolves(models.Model):
         ('4','4'),
         ('5','5'),
     )
+    request_id = models.AutoField(primary_key=True)
+    description = models.CharField(max_length=200)
+    room_id = models.ForeignKey(Room, related_name='room', on_delete=models.CASCADE, null=False)
+    student_id = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
+    submit_date_time = models.DateTimeField(auto_now_add=True)
+    technician_id = models.ForeignKey(Technician, on_delete=models.SET_NULL, null=True)
+    date_time_resolved = models.DateTimeField(null=True)
+    status = models.CharField(max_length=50, choices=STATUS, default='UNRESOLVED')
+    urgency_rating = models.CharField(max_length=20, choices=URGENCY_RATING, default='1')    
 
-    resolves_id = models.AutoField(primary_key=True)
-    technician_id = models.ForeignKey(Technician, on_delete=models.CASCADE, null=False)
-    request_id = models.ForeignKey(MaintenanceRequest, on_delete=models.CASCADE, null=False)
-    date_time_resolved = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=50, choices=STATUS, default='IN PROGRESS')
-    urgency_rating = models.CharField(max_length=20, choices=URGENCY_RATING, default='1')
-    
-    # technician_id and request_id pairs are enforced with a unique constraint
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=['technician_id', 'request_id'], name='resolves_constraint')
-        ]
-
+# Complaint Model
 class Complaint(models.Model):
     STATUS = (
         ('RESOLVED', 'RESOLVED'), 
         ('IN PROGRESS', 'IN PROGRESS'),
         ('UNRESOLVED', 'UNRESOLVED'),
     )
-
     URGENCY_RATING = (
         ('1','1'),
         ('2','2'),
@@ -151,39 +139,32 @@ class Complaint(models.Model):
         ('4','4'),
         ('5','5'),
     )
-    
     complaint_id = models.AutoField(primary_key=True)
     admin_id = models.ForeignKey(Admin, on_delete=models.SET_NULL, null=True)
     student_id = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
-    submit_date = models.DateTimeField(auto_now_add=True)
+    submit_date_time = models.DateTimeField(auto_now_add=True)
     problem_description = models.CharField(max_length=200)
     resolution_description = models.CharField(max_length=200)
+    date_time_resolved = models.DateTimeField(null=True)
     urgency_rating = models.CharField(max_length=20, choices=URGENCY_RATING, default='1')
     status = models.CharField(max_length=20, choices=STATUS, default='UNRESOLVED')
 
+# FoodOrder model
 class FoodOrder(models.Model):
-    food_order_id = models.AutoField(primary_key=True)
-    student_id = models.ForeignKey(Student, on_delete=models.CASCADE)
-    description = models.CharField(max_length=100)
-
-class Fulfills(models.Model):
     STATUS = (
         ('FULFILLED', 'FULFILLED'), 
         ('IN PROGRESS', 'IN PROGRESS'),
+        ('UNFULFILLED', 'UNFULFILLED')
     )
-    
-    fulfills_id = models.AutoField(primary_key=True)
-    food_order_id = models.ForeignKey(FoodOrder, on_delete=models.CASCADE, null=False)
+    food_order_id = models.AutoField(primary_key=True)
+    student_id = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
+    description = models.CharField(max_length=100)
+    submit_date_time = models.DateTimeField(auto_now_add=True)
     chef_id = models.ForeignKey(Chef, on_delete=models.SET_NULL, null=True)
-    date_time_fulfilled = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=20, choices=STATUS, default='IN PROGRESS')
-    
-    # chef_id and food_order_id pairs are enforced with a unique constraint
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=['chef_id', 'food_order_id'], name='fulfills_constraint')
-        ]
+    date_time_fulfilled = models.DateTimeField(null=True)
+    status = models.CharField(max_length=20, choices=STATUS, default='UNFULFILLED')
 
+# Package Model
 class Package(models.Model):
     package_id = models.AutoField(primary_key=True)
     student_id = models.ForeignKey(Student, on_delete=models.CASCADE)

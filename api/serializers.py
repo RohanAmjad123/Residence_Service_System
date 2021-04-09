@@ -66,7 +66,7 @@ class ChefCustomRegistrationSerializer(serializers.ModelSerializer):
     user = CustomUserSerializer(required=True)
     
     class Meta:
-        model = models.Admin
+        model = models.Chef
         fields = '__all__'
 
     def create(self, validated_data, *args, **kwargs):
@@ -98,6 +98,11 @@ class StaffSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Staff
         fields = '__all__'
+
+class StaffPatchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Staff
+        fields = ['phone_num']
     
 class TechnicianSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(source='user.first_name')
@@ -108,6 +113,11 @@ class TechnicianSerializer(serializers.ModelSerializer):
         model = models.Technician
         fields = '__all__'
 
+class TechnicianPatchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Technician
+        fields = ['phone_num', 'specialization']
+
 class AdminSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(source='user.first_name')
     last_name = serializers.CharField(source='user.last_name')
@@ -117,6 +127,11 @@ class AdminSerializer(serializers.ModelSerializer):
         model = models.Admin
         fields = '__all__'
 
+class AdminPatchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Admin
+        fields = ['phone_num', 'access_level']
+
 class ChefSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(source='user.first_name')
     last_name = serializers.CharField(source='user.last_name')
@@ -125,6 +140,11 @@ class ChefSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Chef
         fields = '__all__'
+
+class ChefPatchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Chef
+        fields = ['phone_num', 'position']
 
 class BuildingSerializer(serializers.ModelSerializer):
     class Meta:
@@ -154,27 +174,42 @@ class MaintenanceRequestSerializer(serializers.ModelSerializer):
 class MaintenanceRequestPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.MaintenanceRequest
-        fields = ['description', 'student_id']
+        fields = ['description', 'student_id', 'urgency_rating', 'submit_date_time']
 
-class ResolvesSerializer(serializers.ModelSerializer):
+class MaintenanceRequestPatchSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.Resolves
-        fields = '__all__'
+        model = models.MaintenanceRequest
+        fields = ['technician_id', 'status', 'date_time_resolved']
 
 class ComplaintSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Complaint
         fields = '__all__'
 
+class ComplaintPostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Complaint
+        fields = ['problem_description', 'student_id', 'submit_date_time', 'urgency_rating']
+
+class ComplaintPatchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Complaint
+        fields = ['resolution_description', 'admin_id', 'date_time_resolved', 'status']
+
 class FoodOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.FoodOrder
         fields = '__all__'
 
-class FulfillsSerializer(serializers.ModelSerializer):
+class FoodOrderPostSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.Fulfills
-        fields = '__all__'
+        model = models.FoodOrder
+        fields = ['description', 'student_id', 'submit_date_time']
+
+class FoodOrderPatchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.FoodOrder
+        fields = ['chef_id', 'status', 'date_time_fulfilled']
 
 class PackageSerializer(serializers.ModelSerializer):
     class Meta:
