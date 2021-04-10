@@ -1,0 +1,67 @@
+<template>
+<div>
+<h1 class="title">Today's Menu:</h1>
+<div class="field">
+<label class="label">Chicken Noodle Soup</label>
+<div class="control">
+   <div class="select is-primary">
+      <select>
+         <option>Quantity</option>
+         <option>0</option>
+         <option>1</option>
+         <option>2</option>
+      </select>
+   </div>
+
+   <label class="label">Filet Mignon</label>
+<div class="control">
+   <div class="select is-primary">
+      <select>
+         <option>Quantity</option>
+         <option>0</option>
+         <option>1</option>
+         <option>2</option>
+      </select>
+   </div>
+   <label class="label">Hashbrown</label>
+   <div class="control">
+      <div class="select is-primary">
+         <select>
+            <option>Quantity</option>
+            <option>0</option>
+            <option>1</option>
+            <option>2</option>
+         </select>
+      </div>
+      <label class="label">Chow Mein</label>
+      <div class="control">
+         <div class="select is-primary">
+            <select>
+               <option>Quantity</option>
+               <option>0</option>
+               <option>1</option>
+               <option>2</option>
+            </select>
+         </div>
+         <label class="label">Beef cut sandwhich</label>
+         <div class="control">
+            <div class="select is-primary">
+               <select>
+                  <option>Quantity</option>
+                  <option>0</option>
+                  <option>1</option>
+                  <option>2</option>
+               </select>
+            </div>
+   <div class="control">
+      <button class="button is-primary">Submit</button>
+   </div>
+</div>
+</div>
+</div>
+
+<script>
+export default {
+    
+}
+</script>

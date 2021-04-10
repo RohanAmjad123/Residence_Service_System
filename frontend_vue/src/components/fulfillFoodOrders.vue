@@ -1,27 +1,26 @@
 <template>
 <div>
-<header><strong><center>My Food Orders</center></strong></header>
+<header><strong><center>Fullfill Food Orders</center></strong></header>
 </div>
-
 <div class="container">
   <div class="row">
     <div class="col-12">
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th scope="col">Food Order ID</th>
+            <th scope="col">Student ID</th>
             <th scope="col">Food Order Description</th>
-            <th scope="col">Status</th>
-            <th scope="col">Remove?</th>
+            <th scope="col">Name</th>
+            <th scope="col">Fulfill?</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <th scope="row">1</th>
             <td>English Muffin and Bat Soup</td>
-            <td>Ready</td>
+            <td>Firoz Lakhani</td>
             <td>
-            <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+            <button type="button" class="btn btn-success"><i class="far fa-trash-alt"></i></button>
             </td>
           </tr>
         </tbody>
