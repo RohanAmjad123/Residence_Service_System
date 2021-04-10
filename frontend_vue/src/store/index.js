@@ -7,13 +7,19 @@ export default createStore({
     token: localStorage.getItem("token") || "",
     user: {},
   },
-  mutations: {},
+  mutations: {
+    retreiveToken(state, token) {
+      state.token = token
+    }
+  },
   actions: {
     login(context, userData) {
       axios
         .post("token/", { email: userData.email, password: userData.password })
         .then((response) => {
-          console.log(response);
+          const token = response.data.access
+          localStorage.setItem('token', token)
+          context.commit('retrieveToken', token)
         })
         .catch((error) => {
           console.log(error);
