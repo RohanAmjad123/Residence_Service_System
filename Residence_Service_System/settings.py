@@ -60,9 +60,10 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:8000', 
-    'http://localhost:3000', # Default React client 
     'http://localhost:8080', # Default Vue client
 )
+
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'Residence_Service_System.urls'
 
@@ -138,12 +139,12 @@ STATIC_URL = '/static/'
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     
-    #DEFAULT_PERMISSION_CLASSES': (
-    #   'rest_framework.permissions.IsAuthenticated', # make all endpoints private
-    #),
-    #'DEFAULT_AUTHENTICATION_CLASSES': [
-    #    'rest_framework_simplejwt.authentication.JWTAuthentication',
-    #],
+    'DEFAULT_PERMISSION_CLASSES': (
+       'rest_framework.permissions.IsAuthenticated', # make all endpoints private
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
 }
 
 AUTH_USER_MODEL = 'api.CustomUser'
