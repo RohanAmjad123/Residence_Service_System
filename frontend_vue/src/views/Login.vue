@@ -27,6 +27,12 @@ export default {
             password: this.password
         }
         this.$store.dispatch('login', userData)
+        .then(() => {
+            this.$router.push('/dashboard')
+        })
+        .catch(error => {
+            console.log(error)
+        })
       }
     }
 }

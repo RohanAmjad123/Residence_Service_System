@@ -14,17 +14,21 @@ export default createStore({
   },
   actions: {
     login(context, userData) {
-      axios
-        .post("token/", { email: userData.email, password: userData.password })
-        .then((response) => {
-          const token = response.data.access
-          localStorage.setItem('token', token)
-          context.commit('retrieveToken', token)
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
+      return new Promise((resolve, reject) => {
+        axios
+          .post("token/", { email: userData.email, password: userData.password })
+          .then((response) => {
+            const token = response.data.access
+            localStorage.setItem('token', token)
+            context.commit('retrieveToken', token)
+            resolve(response)
+          })
+          .catch((error) => {
+            console.log(error);
+            reject(error)
+          })
+      })
+    }
   },
   modules: {},
 });
