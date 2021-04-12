@@ -47,7 +47,7 @@ class StaffCustomRegistrationSerializer(serializers.ModelSerializer):
     def create(self, validated_data, *args, **kwargs):
         user = models.CustomUser.objects.create_user(validated_data['user']['email'], validated_data['user']['password'], validated_data['user']['first_name'],
                                         validated_data['user']['last_name'], validated_data['user']['phone_num'])
-        staff = models.Staff.objects.create(user=user, phone_num=validated_data.pop('phone_num'))
+        staff = models.Staff.objects.create(user=user)
         return staff
 
 class TechnicianCustomRegistrationSerializer(serializers.ModelSerializer):
@@ -62,7 +62,7 @@ class TechnicianCustomRegistrationSerializer(serializers.ModelSerializer):
                                         validated_data['user']['last_name'], validated_data['user']['phone_num'])
         user.is_technician = True 
         user.save()
-        technician = models.Technician.objects.create(user=user, phone_num=validated_data.pop('phone_num'), specialization=validated_data.pop('specialization'))
+        technician = models.Technician.objects.create(user=user, specialization=validated_data.pop('specialization'))
         return technician
 
 class AdminCustomRegistrationSerializer(serializers.ModelSerializer):
@@ -77,7 +77,7 @@ class AdminCustomRegistrationSerializer(serializers.ModelSerializer):
                                         validated_data['user']['last_name'], validated_data['user']['phone_num'])
         user.is_admin = True 
         user.save()
-        admin = models.Admin.objects.create(user=user, phone_num=validated_data.pop('phone_num'), access_level=validated_data.pop('access_level'))
+        admin = models.Admin.objects.create(user=user, department=validated_data.pop('department'))
         return admin
 
 class ChefCustomRegistrationSerializer(serializers.ModelSerializer):
@@ -92,7 +92,7 @@ class ChefCustomRegistrationSerializer(serializers.ModelSerializer):
                                         validated_data['user']['last_name'], validated_data['user']['phone_num'])
         user.is_chef = True 
         user.save()
-        chef = models.Chef.objects.create(user=user, phone_num=validated_data.pop('phone_num'), position=validated_data.pop('position'))
+        chef = models.Chef.objects.create(user=user, position=validated_data.pop('position'))
         return chef
 
 # General Serializers
