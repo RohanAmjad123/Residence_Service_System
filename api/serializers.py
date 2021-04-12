@@ -20,6 +20,8 @@ class StudentCustomRegistrationSerializer(serializers.ModelSerializer):
     def create(self, validated_data, *args, **kwargs):
         user = models.CustomUser.objects.create_user(validated_data['user']['email'], validated_data['user']['first_name'], validated_data['user']['last_name'],
                                         validated_data['user']['password'])
+        user.is_student = True 
+        user.save()
         student = models.Student.objects.create(user=user, phone_num=validated_data.pop('phone_num'))
         return student
 
@@ -46,6 +48,8 @@ class TechnicianCustomRegistrationSerializer(serializers.ModelSerializer):
     def create(self, validated_data, *args, **kwargs):
         user = models.CustomUser.objects.create_user(validated_data['user']['email'], validated_data['user']['first_name'], validated_data['user']['last_name'],
                                         validated_data['user']['password'])
+        user.is_technician = True 
+        user.save()
         technician = models.Technician.objects.create(user=user, phone_num=validated_data.pop('phone_num'), specialization=validated_data.pop('specialization'))
         return technician
 
@@ -59,6 +63,8 @@ class AdminCustomRegistrationSerializer(serializers.ModelSerializer):
     def create(self, validated_data, *args, **kwargs):
         user = models.CustomUser.objects.create_user(validated_data['user']['email'], validated_data['user']['first_name'], validated_data['user']['last_name'],
                                         validated_data['user']['password'])
+        user.is_admin = True 
+        user.save()
         admin = models.Admin.objects.create(user=user, phone_num=validated_data.pop('phone_num'), access_level=validated_data.pop('access_level'))
         return admin
 
@@ -72,6 +78,8 @@ class ChefCustomRegistrationSerializer(serializers.ModelSerializer):
     def create(self, validated_data, *args, **kwargs):
         user = models.CustomUser.objects.create_user(validated_data['user']['email'], validated_data['user']['first_name'], validated_data['user']['last_name'],
                                         validated_data['user']['password'])
+        user.is_chef = True 
+        user.save()
         chef = models.Chef.objects.create(user=user, phone_num=validated_data.pop('phone_num'), position=validated_data.pop('position'))
         return chef
 

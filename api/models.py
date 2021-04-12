@@ -35,6 +35,10 @@ class CustomUserManager(BaseUserManager):
 class CustomUser(AbstractUser):
     username = None
     email = models.EmailField(_('email address'), unique=True)
+    is_student = models.BooleanField(default=False)
+    is_admin = models.BooleanField(default=False)
+    is_technician = models.BooleanField(default=False)
+    is_chef = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'password']
