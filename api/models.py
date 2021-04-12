@@ -43,14 +43,12 @@ class CustomUser(AbstractUser):
 
 # Student model
 class Student(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    student_id = models.AutoField(primary_key=True)
+    user = models.OneToOneField(CustomUser, primary_key=True, on_delete=models.CASCADE)
     phone_num = models.CharField(max_length=10)
 
 # Staff model
 class Staff(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    staff_id = models.AutoField(primary_key=True)
+    user = models.OneToOneField(CustomUser, primary_key=True, on_delete=models.CASCADE)
     phone_num = models.CharField(max_length=10)
 
 # Technician model
