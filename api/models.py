@@ -7,11 +7,11 @@ from django.utils.translation import ugettext_lazy  as _
 class CustomUserManager(BaseUserManager):
     use_in_migrations = True
 
-    def _create_user(self, email, first_name, last_name, password, **extra_fields):
+    def _create_user(email, password, first_name, last_name, phone_num, **extra_fields):
         if not email:
             raise ValueError('The given email must be set')
         email = self.normalize_email(email)
-        user = self.model(email=email, first_name=first_name, last_name=last_name, **extra_fields)
+        user = self.model(email=email, first_name=first_name, last_name=last_name, phone_num=phone_num, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -19,7 +19,7 @@ class CustomUserManager(BaseUserManager):
     def create_user(self, email, first_name, last_name, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
-        return self._create_user(email, first_name, last_name, password, **extra_fields)
+        return self._create_user(email, password, first_name, last_name, phone_num, **extra_fields)
 
     def create_superuser(self, email, first_name, last_name, password, **extra_fields):
         extra_fields.setdefault('is_staff', True)
@@ -30,11 +30,12 @@ class CustomUserManager(BaseUserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
 
-        return self._create_user(email, first_name, last_name, password, **extra_fields)
+        return self._create_user(email, password, first_name, last_name, phone_num, **extra_fields)
 
 class CustomUser(AbstractUser):
     username = None
     email = models.EmailField(_('email address'), unique=True)
+    phone_num = models.CharField(max_length=10, null=True)
     is_student = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
     is_technician = models.BooleanField(default=False)
@@ -48,30 +49,19 @@ class CustomUser(AbstractUser):
 # Student model
 class Student(models.Model):
     user = models.OneToOneField(CustomUser, primary_key=True, on_delete=models.CASCADE)
-    phone_num = models.CharField(max_length=10)
+    year_of_study = models.IntegerField()
 
 # Staff model
 class Staff(models.Model):
     user = models.OneToOneField(CustomUser, primary_key=True, on_delete=models.CASCADE)
-    phone_num = models.CharField(max_length=10)
 
 # Technician model
 class Technician(Staff):
-    SPECIALIZATIONS = (
-        ('GENERAL', 'GENERAL'), 
-        ('HEATING', 'HEATING'), 
-        ('PLUMBING', 'PLUMBING'),
-    )
-    specialization = models.CharField(max_length=50, choices=SPECIALIZATIONS, default='GENERAL')
+    specialization = models.CharField(max_length=100)
 
 # Admin model
 class Admin(Staff):
-    ACCESS_LEVELS = (
-        ('LOW', 'LOW'), 
-        ('MID', 'MID'), 
-        ('HIGH', 'HIGH'),
-    )
-    access_level = models.CharField(max_length=10, choices=ACCESS_LEVELS, default='LOW')
+    department = models.CharField(max_length=100)
 
 # Chef model
 class Chef(Staff):
@@ -142,7 +132,7 @@ class Complaint(models.Model):
         ('5','5'),
     )
     complaint_id = models.AutoField(primary_key=True)
-    admin_id = models.ForeignKey(Admin, on_delete=models.SET_NULL, null=True)
+    staff_id = models.ForeignKey(Staff, on_delete=models.SET_NULL, null=True)
     student_id = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
     submit_date_time = models.DateTimeField(auto_now_add=True)
     problem_description = models.CharField(max_length=200)

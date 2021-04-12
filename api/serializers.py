@@ -19,24 +19,22 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 # Custom User Serializers
 class CustomUserSerializer(serializers.ModelSerializer):
-    
     class Meta:
         model = models.CustomUser
-        fields = ('email', 'first_name', 'last_name', 'password',)
+        fields = ('email', 'password', 'first_name', 'last_name', 'phone_num')
 
 class StudentCustomRegistrationSerializer(serializers.ModelSerializer):
     user = CustomUserSerializer(required=True)
-    
     class Meta:
         model = models.Student
         fields = '__all__'
 
     def create(self, validated_data, *args, **kwargs):
-        user = models.CustomUser.objects.create_user(validated_data['user']['email'], validated_data['user']['first_name'], validated_data['user']['last_name'],
-                                        validated_data['user']['password'])
+        user = models.CustomUser.objects.create_user(validated_data['user']['email'], validated_data['user']['password'], validated_data['user']['first_name'],
+                                        validated_data['user']['last_name'], validated_data['user']['phone_num'])
         user.is_student = True 
         user.save()
-        student = models.Student.objects.create(user=user, phone_num=validated_data.pop('phone_num'))
+        student = models.Student.objects.create(user=user, year_of_study=validated_data.pop('year_of_study'))
         return student
 
 class StaffCustomRegistrationSerializer(serializers.ModelSerializer):
@@ -47,8 +45,8 @@ class StaffCustomRegistrationSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data, *args, **kwargs):
-        user = models.CustomUser.objects.create_user(validated_data['user']['email'], validated_data['user']['first_name'], validated_data['user']['last_name'],
-                                        validated_data['user']['password'])
+        user = models.CustomUser.objects.create_user(validated_data['user']['email'], validated_data['user']['password'], validated_data['user']['first_name'],
+                                        validated_data['user']['last_name'], validated_data['user']['phone_num'])
         staff = models.Staff.objects.create(user=user, phone_num=validated_data.pop('phone_num'))
         return staff
 
@@ -60,8 +58,8 @@ class TechnicianCustomRegistrationSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data, *args, **kwargs):
-        user = models.CustomUser.objects.create_user(validated_data['user']['email'], validated_data['user']['first_name'], validated_data['user']['last_name'],
-                                        validated_data['user']['password'])
+        user = models.CustomUser.objects.create_user(validated_data['user']['email'], validated_data['user']['password'], validated_data['user']['first_name'],
+                                        validated_data['user']['last_name'], validated_data['user']['phone_num'])
         user.is_technician = True 
         user.save()
         technician = models.Technician.objects.create(user=user, phone_num=validated_data.pop('phone_num'), specialization=validated_data.pop('specialization'))
@@ -75,8 +73,8 @@ class AdminCustomRegistrationSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data, *args, **kwargs):
-        user = models.CustomUser.objects.create_user(validated_data['user']['email'], validated_data['user']['first_name'], validated_data['user']['last_name'],
-                                        validated_data['user']['password'])
+        user = models.CustomUser.objects.create_user(validated_data['user']['email'], validated_data['user']['password'], validated_data['user']['first_name'],
+                                        validated_data['user']['last_name'], validated_data['user']['phone_num'])
         user.is_admin = True 
         user.save()
         admin = models.Admin.objects.create(user=user, phone_num=validated_data.pop('phone_num'), access_level=validated_data.pop('access_level'))
@@ -90,8 +88,8 @@ class ChefCustomRegistrationSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data, *args, **kwargs):
-        user = models.CustomUser.objects.create_user(validated_data['user']['email'], validated_data['user']['first_name'], validated_data['user']['last_name'],
-                                        validated_data['user']['password'])
+        user = models.CustomUser.objects.create_user(validated_data['user']['email'], validated_data['user']['password'], validated_data['user']['first_name'],
+                                        validated_data['user']['last_name'], validated_data['user']['phone_num'])
         user.is_chef = True 
         user.save()
         chef = models.Chef.objects.create(user=user, phone_num=validated_data.pop('phone_num'), position=validated_data.pop('position'))
@@ -102,6 +100,7 @@ class StudentSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(source='user.first_name')
     last_name = serializers.CharField(source='user.last_name')
     email = serializers.CharField(source='user.email')
+    phone_num = serializers.CharField(source='user.phone_num')
 
     class Meta:
         model = models.Student
@@ -110,26 +109,23 @@ class StudentSerializer(serializers.ModelSerializer):
 class StudentPatchSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Student
-        fields = ['phone_num']
+        fields = ['year_of_study']
 
 class StaffSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(source='user.first_name')
     last_name = serializers.CharField(source='user.last_name')
     email = serializers.CharField(source='user.email')
+    phone_num = serializers.CharField(source='user.phone_num')
 
     class Meta:
         model = models.Staff
         fields = '__all__'
-
-class StaffPatchSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Staff
-        fields = ['phone_num']
-    
+  
 class TechnicianSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(source='user.first_name')
     last_name = serializers.CharField(source='user.last_name')
     email = serializers.CharField(source='user.email')
+    phone_num = serializers.CharField(source='user.phone_num')
     
     class Meta:
         model = models.Technician
@@ -138,12 +134,13 @@ class TechnicianSerializer(serializers.ModelSerializer):
 class TechnicianPatchSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Technician
-        fields = ['phone_num', 'specialization']
+        fields = ['specialization']
 
 class AdminSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(source='user.first_name')
     last_name = serializers.CharField(source='user.last_name')
     email = serializers.CharField(source='user.email')
+    phone_num = serializers.CharField(source='user.phone_num')
     
     class Meta:
         model = models.Admin
@@ -152,12 +149,13 @@ class AdminSerializer(serializers.ModelSerializer):
 class AdminPatchSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Admin
-        fields = ['phone_num', 'access_level']
+        fields = ['department']
 
 class ChefSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(source='user.first_name')
     last_name = serializers.CharField(source='user.last_name')
     email = serializers.CharField(source='user.email')
+    phone_num = serializers.CharField(source='user.phone_num')
     
     class Meta:
         model = models.Chef
@@ -166,7 +164,7 @@ class ChefSerializer(serializers.ModelSerializer):
 class ChefPatchSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Chef
-        fields = ['phone_num', 'position']
+        fields = ['position']
 
 class BuildingSerializer(serializers.ModelSerializer):
     class Meta:
@@ -216,7 +214,7 @@ class ComplaintPostSerializer(serializers.ModelSerializer):
 class ComplaintPatchSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Complaint
-        fields = ['resolution_description', 'admin_id', 'date_time_resolved', 'status']
+        fields = ['resolution_description', 'staff_id', 'date_time_resolved', 'status']
 
 class FoodOrderSerializer(serializers.ModelSerializer):
     class Meta:

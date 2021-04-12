@@ -23,28 +23,28 @@ api/students/
         ?without_room: true, false, True, False
 
 student detail: GET, PATCH
-api/students/{student_id}/
+api/students/{user_id}/
 
 students room: GET
-api/students/{student_id}/room/
+api/students/{user_id}/room/
 
 students maintreqs: GET
-api/students/{student_id}/maintreqs/
+api/students/{user_id}/maintreqs/
     query params:
         ?resolved: true, false, True, False
 
 students complaints: GET
-api/students/{student_id}/complaints/
+api/students/{user_id}/complaints/
     query params:
         ?resolved: true, false, True, False
 
 students food orders: GET 
-api/students/{student_id}/foodsorts/
+api/students/{user_id}/foodorders/
     query params:
         ?fulfilled: true, false, True, False
 
 students packages: GET 
-api/students/{student_id}/packages/
+api/students/{user_id}/packages/
 
 STAFF
 
@@ -52,7 +52,11 @@ staff list: GET
 api/staff/
 
 staff detail: GET, PATCH 
-api/staff/{staff_id}/
+api/staff/{user_id}/
+
+api/staff/{user_id}/complaints/
+    query params:
+        ?resolved: true, false, True, False
 
 TECHNICIANS
 
@@ -60,10 +64,10 @@ technicans list: GET
 api/technicians
 
 technician detail: GET, PATCH
-api/technician/{staff_id}/
+api/technician/{user_id}/
 
 technicians maintreqs: GET
-api/technician/{staff_id}/maintreqs/
+api/technician/{user_id}/maintreqs/
     query params:
         ?resolved: true, false, True, False 
 
@@ -73,12 +77,7 @@ admin list: GET
 api/admins/
 
 admin detail: GET, PATCH
-api/admins/{staff_id}/
-
-admin complaints: GET
-api/admins/{staff_id}/complaints/
-    query params:
-        ?resolved: true, false, True, False
+api/admins/{user_id}/
 
 CHEF 
 
@@ -86,10 +85,10 @@ admin list: GET
 api/chefs/
 
 admin detail: GET, PATCH
-api/chefs/{staff_id}/
+api/chefs/{user_id}/
 
 chef foodorders: GET
-api/chefs/{staff_id}/foodorders/
+api/chefs/{user_id}/foodorders/
     query params:
         ?fulfilled: true, false, True, False
 

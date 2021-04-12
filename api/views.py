@@ -210,14 +210,27 @@ class StudentViewSet(viewsets.ModelViewSet):
 class StaffViewSet(viewsets.ModelViewSet):
     queryset = models.Staff.objects.all()
     serializer_class = serializers.StaffSerializer
-    http_method_names = ['get', 'patch']
+    http_method_names = ['get']
 
-    def get_serializer_class(self):
-        if self.request.method == 'GET':
-            return serializers.StaffSerializer
-        if self.request.method == 'PATCH':
-            return serializers.StaffPatchSerializer
-        return serializers.StudentSerializer
+    @action(detail=True, methods=['get'])
+    def complaints(self, request, pk=None):
+        complaints = models.Complaint.objects.filter(staff_id=pk)
+        resolved = request.GET.get('resolved', None)
+
+        if resolved == 'true' or resolved == 'True':
+            resolved = True
+        elif resolved == 'false' or resolved == 'False':
+            resolved = False
+        else:
+            resolved = ' '
+
+        if resolved == True:
+            complaints = complaints.filter(status='RESOLVED')
+        if resolved == False:
+            complaints = complaints.exclude(status='RESOLVED')
+
+        serializer = serializers.ComplaintSerializer(complaints, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class TechnicianViewSet(viewsets.ModelViewSet):
     queryset = models.Technician.objects.all()
@@ -261,27 +274,7 @@ class AdminViewSet(viewsets.ModelViewSet):
             return serializers.AdminSerializer
         if self.request.method == 'PATCH':
             return serializers.AdminPatchSerializer
-        return serializers.StudentSerializer
-
-    @action(detail=True, methods=['get'])
-    def complaints(self, request, pk=None):
-        complaints = models.Complaint.objects.filter(admin_id=pk)
-        resolved = request.GET.get('resolved', None)
-
-        if resolved == 'true' or resolved == 'True':
-            resolved = True
-        elif resolved == 'false' or resolved == 'False':
-            resolved = False
-        else:
-            resolved = ' '
-
-        if resolved == True:
-            complaints = complaints.filter(status='RESOLVED')
-        if resolved == False:
-            complaints = complaints.exclude(status='RESOLVED')
-
-        serializer = serializers.ComplaintSerializer(complaints, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return serializers.AdminSerializer
 
 class ChefViewSet(viewsets.ModelViewSet):
     queryset = models.Chef.objects.all()
