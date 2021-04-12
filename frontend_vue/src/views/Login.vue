@@ -2,21 +2,25 @@
   <div>
     <form class="login" @submit.prevent="login">
       <h1>Log in</h1>
-      <label>Email</label>
-      <input 
-        required 
-        v-model="email" 
-        type="email" 
-        placeholder="Email" 
-      />
-      <label>Password</label>
-      <input
-        required
-        v-model="password"
-        type="password"
-        placeholder="Password"
-      />
-      <button type="submit">Login</button>
+      <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input 
+            required 
+            v-model="email" 
+            type="email" 
+            placeholder="name@email.com"
+            class="form-control" 
+          />
+          <label>Password</label>
+          <input
+            required
+            v-model="password"
+            type="password"
+            placeholder="password"
+            class="form-control"
+          />
+          <button type="submit" class="btn btn-primary">Login</button>
+      </div>
     </form>
   </div>
 </template>
@@ -48,3 +52,6 @@ export default {
   },
 };
 </script>
+
+<style>
+</style>
