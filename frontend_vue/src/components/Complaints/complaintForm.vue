@@ -50,7 +50,7 @@ export default {
       }
       axios.post("complaints/", complaint)
       .then(() => {
-        this.$router.push("/my-complaints")
+        this.$router.push("/mycomplaints")
       })
       .catch((error) => {
         console.log(error)
