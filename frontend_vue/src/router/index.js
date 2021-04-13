@@ -3,7 +3,8 @@ import store from "@/store/index";
 import Login from "@/views/Login";
 import Home from "@/views/Home";
 import Dashboard from "@/views/Dashboard";
-import MyComplaints from "@/views/MyComplaints";
+import MyComplaints from "@/views/Complaints/MyComplaints";
+import MakeComplaint from "@/views/Complaints/MakeComplaint";
 
 const routes = [
   { 
@@ -23,11 +24,17 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: "/mycomplaints",
+    path: "/my-complaints",
     name: "MyComplaints",
     component: MyComplaints,
     meta: { requiresAuth: true },
   },
+  {
+    path: "/make-complaint",
+    name: "MakeComplaint",
+    component: MakeComplaint,
+    meta: { requiresAuth: true },
+  }
 ];
 
 const router = createRouter({

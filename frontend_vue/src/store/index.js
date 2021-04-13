@@ -1,12 +1,14 @@
 import axios from "axios";
 import { createStore, createLogger } from "vuex";
 import jwt_decode from "jwt-decode";
+import createPersistedState from "vuex-persistedstate";
 
 export default createStore({
   state: {
     status: "",
     token: localStorage.getItem("token") || "",
     user: {},
+    role: ""
   },
   mutations: {
     successfulLogin(state, token) {
@@ -18,22 +20,24 @@ export default createStore({
       state.user.email = decodedToken.email;
       state.user.first_name = decodedToken.first_name;
       state.user.last_name = decodedToken.last_name;
-      
+
+      let role = "";
       if (decodedToken.is_student == true) {
-        state.user.role = "student";
+        role = "student"
       } 
       else if (decodedToken.is_admin == true) {
-        state.user.role = "admin";
+        role = "admin";
       }
       else if (decodedToken.is_technician == true) {
-        state.user.role = "technician";
+        role = "technician";
       }
       else if (decodedToken.is_chef == true) {
-        state.user.role = "chef";
+        role = "chef";
       }
       else {
-        state.user.role = "staff";
+        role = "staff";
       }
+      state.role = role;
     },
     failedLogin(state) {
       state.status = "error";
@@ -41,7 +45,10 @@ export default createStore({
     logout(state) {
       state.status = "";
       state.token = "";
+      state.role = "";
       state.user = "";
+      localStorage.removeItem("token");
+      localStorage.removeItem("role")
     },
   },
   actions: {
@@ -79,8 +86,12 @@ export default createStore({
   getters: {
     isLoggedIn: (state) => !!state.token,
     authStatus: (state) => state.status,
+    getRole: (state) => state.role,
+    getUserID: (state) => {
+      return state.user.user_id;
+    }
   },
   plugins: process.env.NODE_ENV !== 'production'
-    ? [createLogger()]
+    ? [createLogger(), createPersistedState()]
     : []
 });
