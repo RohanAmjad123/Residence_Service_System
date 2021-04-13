@@ -144,7 +144,7 @@ api/foodorders/
         ?resolved: true, false, True, False  
 
 foodorders detail: GET, PATCH
-api/foodorders/{order_id}/
+api/foodorders/{food_order_id}/
 
 PACKAGES
 
