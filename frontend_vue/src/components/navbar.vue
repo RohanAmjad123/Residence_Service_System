@@ -5,6 +5,7 @@
         <router-link to="Dashboard" v-if="isLoggedIn" class="navbar-brand">Dashboard</router-link>
         <router-link to="MyComplaints" v-if="isLoggedIn" class="navbar-brand">My Complaints</router-link>
         <router-link to="MyMaintreqs" v-if="isLoggedIn" class="navbar-brand">My Maintenance Requests</router-link>
+        <router-link to="MyFoodorders" v-if="isLoggedIn" class="navbar-brand">My Food Orders</router-link>
       </div>
       <logoutButton v-if="isLoggedIn" class="btn btn-secondary navbar-brand ml-3 px-3" />
       <router-link to="Login" v-if="!isLoggedIn" class="btn btn-primary navbar-brand ml-3 px-3">Login</router-link>

@@ -7,6 +7,8 @@ import MyComplaints from "@/views/Complaints/MyComplaints";
 import MakeComplaint from "@/views/Complaints/MakeComplaint";
 import MyMaintreqs from "@/views/Maintreqs/MyMaintreqs";
 import MakeMaintreq from "@/views/Maintreqs/MakeMaintreq";
+import MyFoodorders from "@/views/Foodorders/MyFoodorders";
+import MakeFoodorder from "@/views/Foodorders/MakeFoodorder";
 
 const routes = [
   { 
@@ -47,6 +49,18 @@ const routes = [
     path: "/make-maintreq",
     name: "MakeMaintreq",
     component: MakeMaintreq,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/myfoodorders",
+    name: "MyFoodorders",
+    component: MyFoodorders,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/make-foodorder",
+    name: "MakeFoodorder",
+    component: MakeFoodorder,
     meta: { requiresAuth: true },
   }
 ];
