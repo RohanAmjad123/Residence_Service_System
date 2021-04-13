@@ -5,6 +5,8 @@ import Home from "@/views/Home";
 import Dashboard from "@/views/Dashboard";
 import MyComplaints from "@/views/Complaints/MyComplaints";
 import MakeComplaint from "@/views/Complaints/MakeComplaint";
+import MyMaintreqs from "@/views/Maintreqs/MyMaintreqs";
+import MakeMaintreq from "@/views/Maintreqs/MakeMaintreq";
 
 const routes = [
   { 
@@ -34,6 +36,18 @@ const routes = [
     name: "MakeComplaint",
     component: MakeComplaint,
     meta: { requiresAuth: true },
+  },
+  {
+    path: "/mymaintreqs",
+    name: "MyMaintreqs",
+    component: MyMaintreqs,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/make-maintreq",
+    name: "MakeMaintreq",
+    component: MakeMaintreq,
+    meta: { requiresAuth: true },
   }
 ];
 
@@ -45,6 +59,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (store.getters.isLoggedIn) {
+
       next();
       return;
     }
