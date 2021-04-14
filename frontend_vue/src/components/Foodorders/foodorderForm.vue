@@ -6,14 +6,16 @@
       </div>
       <div class="form-group">
         <label class="form-label">Order Description</label>
-        <input 
-          type="text" 
+        <input
+          type="text"
           v-model="description"
           required
           class="form-control"
         />
       </div>
-      <button type="submit" @click="submitFoodorder" class="btn btn-primary">Submit Food Order</button>
+      <button type="submit" @click="submitFoodorder" class="btn btn-primary">
+        Submit Food Order
+      </button>
     </form>
   </div>
 </template>
@@ -33,16 +35,17 @@ export default {
       let foodorder = {
         description: this.description,
         student_id: this.student_id,
-      }
-      axios.post("foodorders/", foodorder)
-      .then(() => {
-        this.$router.push("/myfoodorders")
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-    }
-  }
+      };
+      axios
+        .post("foodorders/", foodorder)
+        .then(() => {
+          this.$router.push("/myfoodorders");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
 };
 </script>
 

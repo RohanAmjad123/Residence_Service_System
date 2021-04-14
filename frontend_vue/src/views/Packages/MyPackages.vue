@@ -1,11 +1,11 @@
 <template>
   <div class="My Packages">
     <h1>My Packages</h1>
-    <addPackageButton 
+    <addPackageButton
       class="btn btn-danger m-3 mb-4"
       v-if="['staff', 'admin'].includes(userRole)"
     />
-    <packagesTable class="container"/>
+    <packagesTable class="container" />
   </div>
 </template>
 
@@ -16,13 +16,13 @@ import addPackageButton from "@/components/Packages/addPackageButton";
 export default {
   components: {
     packagesTable,
-    addPackageButton
+    addPackageButton,
   },
   computed: {
     userRole: function () {
-      return this.$store.state.role
-    }
-  }
+      return this.$store.state.role;
+    },
+  },
 };
 </script>
 

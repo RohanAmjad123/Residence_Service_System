@@ -1,11 +1,11 @@
 <template>
   <div class="My Maintreqs">
     <h1>My Maintenance Requests</h1>
-    <makeMaintreqButton 
+    <makeMaintreqButton
       class="btn btn-danger m-3 mb-4"
       v-if="['student'].includes(userRole)"
     />
-    <maintreqsTable class="container"/>
+    <maintreqsTable class="container" />
   </div>
 </template>
 
@@ -16,13 +16,13 @@ import makeMaintreqButton from "@/components/Maintreqs/makeMaintreqButton";
 export default {
   components: {
     maintreqsTable,
-    makeMaintreqButton
+    makeMaintreqButton,
   },
   computed: {
     userRole: function () {
-      return this.$store.state.role
-    }
-  }
+      return this.$store.state.role;
+    },
+  },
 };
 </script>
 

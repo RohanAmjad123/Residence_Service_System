@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  props: ['maintreq'],
+  props: ["maintreq"],
   data() {
     return {
       requestID: this.maintreq.request_id,
@@ -32,4 +32,3 @@ export default {
 </script>
 
 <style></style>
-

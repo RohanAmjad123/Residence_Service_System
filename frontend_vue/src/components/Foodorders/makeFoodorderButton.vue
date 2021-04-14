@@ -6,9 +6,9 @@
 export default {
   methods: {
     makeFoodorder: function () {
-      this.$router.push("/make-foodorder")
-    }
-  }
+      this.$router.push("/make-foodorder");
+    },
+  },
 };
 </script>
 

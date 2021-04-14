@@ -12,88 +12,88 @@ import MakeFoodorder from "@/views/Foodorders/MakeFoodorder";
 import MyPackages from "@/views/Packages/MyPackages";
 
 const routes = [
-  { 
-    path: "/login", 
-    name: "Login", 
-    component: Login 
+  {
+    path: "/login",
+    name: "Login",
+    component: Login,
   },
-  { 
-    path: "/home", 
-    name: "Home", 
-    component: Home 
+  {
+    path: "/home",
+    name: "Home",
+    component: Home,
   },
   {
     path: "/dashboard",
     name: "Dashboard",
     component: Dashboard,
-    meta: { 
-      requiresAuth: true, 
-      roles: ["student", "staff", "admin", "technician", "chef"]
+    meta: {
+      requiresAuth: true,
+      roles: ["student", "staff", "admin", "technician", "chef"],
     },
   },
   {
     path: "/mycomplaints",
     name: "MyComplaints",
     component: MyComplaints,
-    meta: { 
+    meta: {
       requiresAuth: true,
-      roles: ["student", "staff", "admin"]
+      roles: ["student", "staff", "admin"],
     },
   },
   {
     path: "/make-complaint",
     name: "MakeComplaint",
     component: MakeComplaint,
-    meta: { 
+    meta: {
       requiresAuth: true,
-      roles: ["student"]
+      roles: ["student"],
     },
   },
   {
     path: "/mymaintreqs",
     name: "MyMaintreqs",
     component: MyMaintreqs,
-    meta: { 
+    meta: {
       requiresAuth: true,
-      roles: ["student", "staff", "admin", "technician"]
+      roles: ["student", "staff", "admin", "technician"],
     },
   },
   {
     path: "/make-maintreq",
     name: "MakeMaintreq",
     component: MakeMaintreq,
-    meta: { 
+    meta: {
       requiresAuth: true,
-      roles: ["student"]
+      roles: ["student"],
     },
   },
   {
     path: "/myfoodorders",
     name: "MyFoodorders",
     component: MyFoodorders,
-    meta: { 
+    meta: {
       requiresAuth: true,
-      roles: ["student", "staff", "admin", "chef"]
+      roles: ["student", "staff", "admin", "chef"],
     },
   },
   {
     path: "/make-foodorder",
     name: "MakeFoodorder",
     component: MakeFoodorder,
-    meta: { 
+    meta: {
       requiresAuth: true,
-      roles: ["student"]
+      roles: ["student"],
     },
   },
   {
     path: "/mypackages",
     name: "MyPackages",
     component: MyPackages,
-    meta: { 
+    meta: {
       requiresAuth: true,
-      roles: ["student", "admin", "staff"]
+      roles: ["student", "admin", "staff"],
     },
-  }
+  },
 ];
 
 const router = createRouter({

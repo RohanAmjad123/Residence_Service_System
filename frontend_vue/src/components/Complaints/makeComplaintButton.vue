@@ -1,17 +1,14 @@
 <template>
-  <button 
-    type="button" 
-    @click="makeComplaint">Make Complaint
-  </button>
+  <button type="button" @click="makeComplaint">Make Complaint</button>
 </template>
 
 <script>
 export default {
   methods: {
     makeComplaint: function () {
-      this.$router.push("/make-complaint")
-    }
-  }
+      this.$router.push("/make-complaint");
+    },
+  },
 };
 </script>
 

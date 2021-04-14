@@ -8,7 +8,7 @@
       </tr>
     </thead>
     <tbody>
-      <pkg v-for="pkg in packages" :key="pkg" :pkg="pkg"> </pkg> 
+      <pkg v-for="pkg in packages" :key="pkg" :pkg="pkg"> </pkg>
     </tbody>
   </table>
 </template>
@@ -24,30 +24,29 @@ export default {
   data() {
     return {
       packages: [],
-      url: ""
-    }
+      url: "",
+    };
   },
   mounted() {
-    let role = this.$store.state.role
+    let role = this.$store.state.role;
     let userID = this.$store.state.user.user_id;
 
     if (role == "student") {
-        this.url = "students/" + userID + "/packages/";
-    }
-    else {
-      this.url = "packages/"
+      this.url = "students/" + userID + "/packages/";
+    } else {
+      this.url = "packages/";
     }
 
-    axios.get(this.url)
-    .then(response => {
-      this.packages = response.data;
-    })
-    .catch((error) => {
-      console.log(error)
-    })
-  }
+    axios
+      .get(this.url)
+      .then((response) => {
+        this.packages = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
 };
 </script>
 
-<style>
-</style>
+<style></style>

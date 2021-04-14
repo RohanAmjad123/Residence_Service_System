@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  props: ['foodorder'],
+  props: ["foodorder"],
   data() {
     return {
       orderID: this.foodorder.food_order_id,
@@ -28,4 +28,3 @@ export default {
 </script>
 
 <style></style>
-

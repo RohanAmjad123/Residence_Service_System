@@ -14,7 +14,12 @@
       </tr>
     </thead>
     <tbody>
-      <maintreq v-for="maintreq in maintreqs" :key="maintreq" :maintreq="maintreq"> </maintreq> 
+      <maintreq
+        v-for="maintreq in maintreqs"
+        :key="maintreq"
+        :maintreq="maintreq"
+      >
+      </maintreq>
     </tbody>
   </table>
 </template>
@@ -30,33 +35,31 @@ export default {
   data() {
     return {
       maintreqs: [],
-      url: ""
-    }
+      url: "",
+    };
   },
   mounted() {
-    let role = this.$store.state.role
+    let role = this.$store.state.role;
     let userID = this.$store.state.user.user_id;
 
     if (role == "student") {
-        this.url = "students/" + userID + "/maintreqs/";
-    }
-    else if (role == "technician") {
-        this.url = "technicians/" + userID + "/maintreqs/"
-    }
-    else {
-      this.url = "maintreqs/"
+      this.url = "students/" + userID + "/maintreqs/";
+    } else if (role == "technician") {
+      this.url = "technicians/" + userID + "/maintreqs/";
+    } else {
+      this.url = "maintreqs/";
     }
 
-    axios.get(this.url)
-    .then(response => {
-      this.maintreqs = response.data;
-    })
-    .catch((error) => {
-      console.log(error)
-    })
-  }
+    axios
+      .get(this.url)
+      .then((response) => {
+        this.maintreqs = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
 };
 </script>
 
-<style>
-</style>
+<style></style>

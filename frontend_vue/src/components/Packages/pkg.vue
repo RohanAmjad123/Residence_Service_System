@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  props: ['pkg'],
+  props: ["pkg"],
   data() {
     return {
       packageID: this.pkg.package_id,
@@ -20,4 +20,3 @@ export default {
 </script>
 
 <style></style>
-

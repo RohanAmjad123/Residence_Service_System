@@ -1,11 +1,11 @@
 <template>
   <div class="My Complaints">
     <h1>My Complaints</h1>
-    <makeComplaintButton 
+    <makeComplaintButton
       class="btn btn-danger m-3 mb-4"
       v-if="['student'].includes(userRole)"
     />
-    <complaintsTable class="container"/>
+    <complaintsTable class="container" />
   </div>
 </template>
 
@@ -16,13 +16,13 @@ import makeComplaintButton from "@/components/Complaints/makeComplaintButton";
 export default {
   components: {
     complaintsTable,
-    makeComplaintButton
+    makeComplaintButton,
   },
   computed: {
     userRole: function () {
-      return this.$store.state.role
-    }
-  }
+      return this.$store.state.role;
+    },
+  },
 };
 </script>
 

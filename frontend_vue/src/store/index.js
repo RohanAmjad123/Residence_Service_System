@@ -8,7 +8,7 @@ export default createStore({
     status: "",
     token: localStorage.getItem("token") || "",
     user: {},
-    role: ""
+    role: "",
   },
   mutations: {
     successfulLogin(state, token) {
@@ -23,18 +23,14 @@ export default createStore({
 
       let role = "";
       if (decodedToken.is_student == true) {
-        role = "student"
-      } 
-      else if (decodedToken.is_admin == true) {
+        role = "student";
+      } else if (decodedToken.is_admin == true) {
         role = "admin";
-      }
-      else if (decodedToken.is_technician == true) {
+      } else if (decodedToken.is_technician == true) {
         role = "technician";
-      }
-      else if (decodedToken.is_chef == true) {
+      } else if (decodedToken.is_chef == true) {
         role = "chef";
-      }
-      else {
+      } else {
         role = "staff";
       }
       state.role = role;
@@ -48,7 +44,7 @@ export default createStore({
       state.role = "";
       state.user = "";
       localStorage.removeItem("token");
-      localStorage.removeItem("role")
+      localStorage.removeItem("role");
     },
   },
   actions: {
@@ -89,9 +85,10 @@ export default createStore({
     getRole: (state) => state.role,
     getUserID: (state) => {
       return state.user.user_id;
-    }
+    },
   },
-  plugins: process.env.NODE_ENV !== 'production'
-    ? [createLogger(), createPersistedState()]
-    : []
+  plugins:
+    process.env.NODE_ENV !== "production"
+      ? [createLogger(), createPersistedState()]
+      : [],
 });

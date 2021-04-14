@@ -1,11 +1,11 @@
 <template>
   <div class="My Foodorders">
     <h1>My Food Orders</h1>
-    <makeFoodorderButton 
+    <makeFoodorderButton
       class="btn btn-danger m-3 mb-4"
       v-if="['student'].includes(userRole)"
     />
-    <foodordersTable class="container"/>
+    <foodordersTable class="container" />
   </div>
 </template>
 
@@ -16,13 +16,13 @@ import makeFoodorderButton from "@/components/Foodorders/makeFoodorderButton";
 export default {
   components: {
     foodordersTable,
-    makeFoodorderButton
+    makeFoodorderButton,
   },
   computed: {
     userRole: function () {
-      return this.$store.state.role
-    }
-  }
+      return this.$store.state.role;
+    },
+  },
 };
 </script>
 

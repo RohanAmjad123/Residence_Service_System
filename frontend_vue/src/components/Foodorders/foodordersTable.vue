@@ -12,7 +12,11 @@
       </tr>
     </thead>
     <tbody>
-      <foodorder v-for="foodorder in foodorders" :key="foodorder" :foodorder="foodorder"></foodorder> 
+      <foodorder
+        v-for="foodorder in foodorders"
+        :key="foodorder"
+        :foodorder="foodorder"
+      ></foodorder>
     </tbody>
   </table>
 </template>
@@ -28,33 +32,31 @@ export default {
   data() {
     return {
       foodorders: [],
-      url: ""
-    }
+      url: "",
+    };
   },
   mounted() {
-    let role = this.$store.state.role
+    let role = this.$store.state.role;
     let userID = this.$store.state.user.user_id;
 
     if (role == "student") {
-        this.url = "students/" + userID + "/foodorders/";
-    }
-    else if (role == "chef") {
-        this.url = "chefs/" + userID + "/foodorders/"
-    }
-    else {
-      this.url = "foodorders/"
+      this.url = "students/" + userID + "/foodorders/";
+    } else if (role == "chef") {
+      this.url = "chefs/" + userID + "/foodorders/";
+    } else {
+      this.url = "foodorders/";
     }
 
-    axios.get(this.url)
-    .then(response => {
-      this.foodorders = response.data;
-    })
-    .catch((error) => {
-      console.log(error)
-    })
-  }
+    axios
+      .get(this.url)
+      .then((response) => {
+        this.foodorders = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
 };
 </script>
 
-<style>
-</style>
+<style></style>
