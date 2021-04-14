@@ -50,6 +50,8 @@ STAFF
 
 staff list: GET
 api/staff/
+    query params:
+        ?general: true, false, True, False
 
 staff detail: GET, PATCH 
 api/staff/{user_id}/

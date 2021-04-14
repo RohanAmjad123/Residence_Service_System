@@ -212,6 +212,25 @@ class StaffViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.StaffSerializer
     http_method_names = ['get']
 
+    def get_queryset(self):
+        if self.request.method == 'GET':
+            staff = models.Staff.objects.all()
+            general = self.request.GET.get('general', None)
+
+            if general == 'true' or general == 'True':
+                general = True
+            elif general == 'false' or general == 'False':
+                general = False
+            else:
+                general = ' '
+
+            if general == True or general == False:
+                staff = staff.filter(admin__isnull=general).filter(technician__isnull=general).filter(chef__isnull=general)
+            
+            return staff
+
+        return models.Staff.objects.all()
+
     @action(detail=True, methods=['get'])
     def complaints(self, request, pk=None):
         complaints = models.Complaint.objects.filter(staff_id=pk)
