@@ -9,12 +9,29 @@
     <td>{{ dateResolved }}</td>
     <td>{{ status }}</td>
     <td>{{ urgencyRating }}</td>
+    <td v-if="status != 'RESOLVED' && ['staff'].includes(userRole)">
+      <resolveComplaintButton :complaint="complaintID" />
+    </td>
+    <td
+      v-if="
+        staffID == null && status != 'RESOLVED' && ['admin'].includes(userRole)
+      "
+    >
+      <assignComplaintButton :complaint="complaintID" :staff="this.staff" />
+    </td>
   </tr>
 </template>
 
 <script>
+import resolveComplaintButton from "@/components/Complaints/resolveComplaintButton";
+import assignComplaintButton from "@/components/Complaints/assignComplaintButton";
+
 export default {
-  props: ['complaint'],
+  components: {
+    resolveComplaintButton,
+    assignComplaintButton,
+  },
+  props: ["complaint", "staff"],
   data() {
     return {
       complaintID: this.complaint.complaint_id,
@@ -28,8 +45,12 @@ export default {
       urgencyRating: this.complaint.urgency_rating,
     };
   },
+  computed: {
+    userRole: function () {
+      return this.$store.state.role;
+    },
+  },
 };
 </script>
 
 <style></style>
-
