@@ -9,6 +9,7 @@ import MyMaintreqs from "@/views/Maintreqs/MyMaintreqs";
 import MakeMaintreq from "@/views/Maintreqs/MakeMaintreq";
 import MyFoodorders from "@/views/Foodorders/MyFoodorders";
 import MakeFoodorder from "@/views/Foodorders/MakeFoodorder";
+import MyPackages from "@/views/Packages/MyPackages";
 
 const routes = [
   { 
@@ -25,43 +26,73 @@ const routes = [
     path: "/dashboard",
     name: "Dashboard",
     component: Dashboard,
-    meta: { requiresAuth: true },
+    meta: { 
+      requiresAuth: true, 
+      roles: ["student", "staff", "admin", "technician", "chef"]
+    },
   },
   {
     path: "/mycomplaints",
     name: "MyComplaints",
     component: MyComplaints,
-    meta: { requiresAuth: true },
+    meta: { 
+      requiresAuth: true,
+      roles: ["student", "staff", "admin"]
+    },
   },
   {
     path: "/make-complaint",
     name: "MakeComplaint",
     component: MakeComplaint,
-    meta: { requiresAuth: true },
+    meta: { 
+      requiresAuth: true,
+      roles: ["student"]
+    },
   },
   {
     path: "/mymaintreqs",
     name: "MyMaintreqs",
     component: MyMaintreqs,
-    meta: { requiresAuth: true },
+    meta: { 
+      requiresAuth: true,
+      roles: ["student", "staff", "admin", "technician"]
+    },
   },
   {
     path: "/make-maintreq",
     name: "MakeMaintreq",
     component: MakeMaintreq,
-    meta: { requiresAuth: true },
+    meta: { 
+      requiresAuth: true,
+      roles: ["student"]
+    },
   },
   {
     path: "/myfoodorders",
     name: "MyFoodorders",
     component: MyFoodorders,
-    meta: { requiresAuth: true },
+    meta: { 
+      requiresAuth: true,
+      roles: ["student", "staff", "admin", "chef"]
+    },
   },
   {
     path: "/make-foodorder",
     name: "MakeFoodorder",
     component: MakeFoodorder,
-    meta: { requiresAuth: true },
+    meta: { 
+      requiresAuth: true,
+      roles: ["student"]
+    },
+  },
+  {
+    path: "/mypackages",
+    name: "MyPackages",
+    component: MyPackages,
+    meta: { 
+      requiresAuth: true,
+      roles: ["student", "admin", "staff"]
+    },
   }
 ];
 
@@ -73,8 +104,12 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (store.getters.isLoggedIn) {
-
-      next();
+      if (!to.meta.roles) {
+        return next();
+      }
+      if (to.meta.roles.includes(store.state.role)) {
+        return next();
+      }
       return;
     }
     next("/login");
