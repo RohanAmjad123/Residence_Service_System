@@ -111,9 +111,9 @@ class MaintenanceRequest(models.Model):
     description = models.CharField(max_length=200)
     room_id = models.ForeignKey(Room, related_name='room', on_delete=models.CASCADE, null=False)
     student_id = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
-    submit_date_time = models.DateTimeField(auto_now_add=True)
+    submit_date_time = models.DateField(auto_now_add=True)
     technician_id = models.ForeignKey(Technician, on_delete=models.SET_NULL, null=True)
-    date_time_resolved = models.DateTimeField(null=True)
+    date_time_resolved = models.DateField(null=True)
     status = models.CharField(max_length=50, choices=STATUS, default='UNRESOLVED')
     urgency_rating = models.CharField(max_length=20, choices=URGENCY_RATING, default='1')    
 
@@ -134,10 +134,10 @@ class Complaint(models.Model):
     complaint_id = models.AutoField(primary_key=True)
     staff_id = models.ForeignKey(Staff, on_delete=models.SET_NULL, null=True)
     student_id = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
-    submit_date_time = models.DateTimeField(auto_now_add=True)
+    submit_date_time = models.DateField(auto_now_add=True)
     problem_description = models.CharField(max_length=200)
-    resolution_description = models.CharField(max_length=200)
-    date_time_resolved = models.DateTimeField(null=True)
+    resolution_description = models.CharField(max_length=200, null=True)
+    date_time_resolved = models.DateField(null=True)
     urgency_rating = models.CharField(max_length=20, choices=URGENCY_RATING, default='1')
     status = models.CharField(max_length=20, choices=STATUS, default='UNRESOLVED')
 
@@ -151,9 +151,9 @@ class FoodOrder(models.Model):
     food_order_id = models.AutoField(primary_key=True)
     student_id = models.ForeignKey(Student, on_delete=models.CASCADE, null=False)
     description = models.CharField(max_length=100)
-    submit_date_time = models.DateTimeField(auto_now_add=True)
+    submit_date_time = models.DateField(auto_now_add=True)
     chef_id = models.ForeignKey(Chef, on_delete=models.SET_NULL, null=True)
-    date_time_fulfilled = models.DateTimeField(null=True)
+    date_time_fulfilled = models.DateField(null=True)
     status = models.CharField(max_length=20, choices=STATUS, default='UNFULFILLED')
 
 # Package Model
