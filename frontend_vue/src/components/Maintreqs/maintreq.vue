@@ -9,12 +9,29 @@
     <td>{{ dateResolved }}</td>
     <td>{{ status }}</td>
     <td>{{ urgencyRating }}</td>
+    <td v-if="status != 'RESOLVED' && ['technician'].includes(userRole)">
+      <resolveMaintreqButton :maintreq="requestID" />
+    </td>
+    <td
+      v-if="
+        technicianID == null && status != 'RESOLVED' && ['admin'].includes(userRole)
+      "
+    >
+      <assignMaintreqButton :maintreq="requestID" :technicians="this.technicians" />
+    </td>
   </tr>
 </template>
 
 <script>
+import resolveMaintreqButton from "@/components/Maintreqs/resolveMaintreqButton";
+import assignMaintreqButton from "@/components/Maintreqs/assignMaintreqButton";
+
 export default {
-  props: ["maintreq"],
+  components: {
+    resolveMaintreqButton,
+    assignMaintreqButton,
+  },
+  props: ["maintreq", "technicians"],
   data() {
     return {
       requestID: this.maintreq.request_id,
@@ -27,6 +44,11 @@ export default {
       status: this.maintreq.status,
       urgencyRating: this.maintreq.urgency_rating,
     };
+  },
+  computed: {
+    userRole: function () {
+      return this.$store.state.role;
+    },
   },
 };
 </script>

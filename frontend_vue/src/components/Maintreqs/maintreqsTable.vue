@@ -11,6 +11,7 @@
         <th>Date Resolved</th>
         <th>Status</th>
         <th>Urgency Rating</th>
+        <th v-if="['technician', 'admin'].includes(userRole)"></th>
       </tr>
     </thead>
     <tbody>
@@ -18,6 +19,7 @@
         v-for="maintreq in maintreqs"
         :key="maintreq"
         :maintreq="maintreq"
+        :technicians="technicians"
       >
       </maintreq>
     </tbody>
@@ -36,6 +38,7 @@ export default {
     return {
       maintreqs: [],
       url: "",
+      technicians: []
     };
   },
   mounted() {
@@ -58,6 +61,23 @@ export default {
       .catch((error) => {
         console.log(error);
       });
+
+    if (["admin"].includes(role)) {
+      axios
+        .get("technicians/")
+        .then((response) => {
+          console.log(response)
+          this.technicians = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  },
+  computed: {
+    userRole: function () {
+      return this.$store.state.role;
+    },
   },
 };
 </script>
