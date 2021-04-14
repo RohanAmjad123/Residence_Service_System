@@ -38,6 +38,7 @@ export default {
       let url = "complaints/" + this.complaintID + "/";
       let data = {
         staff_id: user,
+        status: "IN PROGRESS"
       };
       axios
         .patch(url, data)
