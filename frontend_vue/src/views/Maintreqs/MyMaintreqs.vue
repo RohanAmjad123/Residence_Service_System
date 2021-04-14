@@ -1,7 +1,10 @@
 <template>
   <div class="My Maintreqs">
     <h1>My Maintenance Requests</h1>
-    <makeMaintreqButton class="btn btn-danger m-2"/>
+    <makeMaintreqButton 
+      class="btn btn-danger m-3 mb-4"
+      v-if="['student'].includes(userRole)"
+    />
     <maintreqsTable class="container"/>
   </div>
 </template>
@@ -15,6 +18,11 @@ export default {
     maintreqsTable,
     makeMaintreqButton
   },
+  computed: {
+    userRole: function () {
+      return this.$store.state.role
+    }
+  }
 };
 </script>
 

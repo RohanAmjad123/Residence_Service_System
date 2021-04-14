@@ -1,7 +1,10 @@
 <template>
   <div class="My Complaints">
     <h1>My Complaints</h1>
-    <makeComplaintButton class="btn btn-danger m-2"/>
+    <makeComplaintButton 
+      class="btn btn-danger m-3 mb-4"
+      v-if="['student'].includes(userRole)"
+    />
     <complaintsTable class="container"/>
   </div>
 </template>
@@ -15,6 +18,11 @@ export default {
     complaintsTable,
     makeComplaintButton
   },
+  computed: {
+    userRole: function () {
+      return this.$store.state.role
+    }
+  }
 };
 </script>
 

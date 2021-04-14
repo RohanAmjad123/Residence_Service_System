@@ -1,10 +1,10 @@
 <template>
   <div>
-    <form>
+    <form class="container w-50">
       <div class="form-group">
         <label class="form-label">Student ID: {{ student_id }}</label>
       </div>
-      <div class="form-group">
+      <div class="form-group m-2">
         <label class="form-label">Problem Description</label>
         <input 
           type="text" 
@@ -13,7 +13,7 @@
           class="form-control"
         />
       </div>
-      <div class="form-group">
+      <div class="form-group m-2">
         <label class="form-label">Urgency Rating</label>
         <div class="input-group">
           <select class="form-select" v-model="urgency_rating">
@@ -25,7 +25,7 @@
           </select>
         </div>
       </div>
-      <button type="submit" @click="submitComplaint" class="btn btn-primary">Submit Complaint</button>
+      <button type="submit" @click="submitComplaint" class="btn btn-primary m-2">Submit Complaint</button>
     </form>
   </div>
 </template>

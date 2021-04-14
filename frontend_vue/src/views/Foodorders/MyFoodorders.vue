@@ -1,7 +1,10 @@
 <template>
   <div class="My Foodorders">
     <h1>My Food Orders</h1>
-    <makeFoodorderButton class="btn btn-danger m-2"/>
+    <makeFoodorderButton 
+      class="btn btn-danger m-3 mb-4"
+      v-if="['student'].includes(userRole)"
+    />
     <foodordersTable class="container"/>
   </div>
 </template>
@@ -15,6 +18,11 @@ export default {
     foodordersTable,
     makeFoodorderButton
   },
+  computed: {
+    userRole: function () {
+      return this.$store.state.role
+    }
+  }
 };
 </script>
 

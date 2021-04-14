@@ -1,6 +1,6 @@
 <template>
   <table class="table">
-    <thead>
+    <thead class="table-secondary">
       <tr>
         <th>Request ID</th>
         <th>Student ID</th>

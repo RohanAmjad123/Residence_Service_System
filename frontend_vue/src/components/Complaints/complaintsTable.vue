@@ -1,6 +1,6 @@
 <template>
   <table class="table">
-    <thead>
+    <thead class="table-secondary">
       <tr>
         <th>Complaint ID</th>
         <th>Student ID</th>

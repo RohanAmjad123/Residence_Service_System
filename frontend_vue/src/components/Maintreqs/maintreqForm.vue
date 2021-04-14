@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container w-50">
     <form>
       <div class="form-group">
         <label class="form-label">Student ID: {{ student_id }}</label>
