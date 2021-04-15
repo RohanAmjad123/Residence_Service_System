@@ -33,6 +33,9 @@
         class="navbar-brand"
         >My Packages
       </router-link>
+      <router-link to="ManageRooms" v-if="isLoggedIn" class="navbar-brand"
+        >Manage Rooms</router-link
+      >
     </div>
     <logoutButton
       v-if="isLoggedIn"

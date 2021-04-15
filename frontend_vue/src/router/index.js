@@ -10,6 +10,7 @@ import MakeMaintreq from "@/views/Maintreqs/MakeMaintreq";
 import MyFoodorders from "@/views/Foodorders/MyFoodorders";
 import MakeFoodorder from "@/views/Foodorders/MakeFoodorder";
 import MyPackages from "@/views/Packages/MyPackages";
+import ManageRooms from "@/views/Rooms/ManageRooms";
 
 const routes = [
   {
@@ -92,6 +93,15 @@ const routes = [
     meta: {
       requiresAuth: true,
       roles: ["student", "admin", "staff"],
+    },
+  },
+  {
+    path: "/managerooms",
+    name: "ManageRooms",
+    component: ManageRooms,
+    meta: {
+      requiresAuth: true,
+      roles: ["admin", "staff"],
     },
   },
 ];
