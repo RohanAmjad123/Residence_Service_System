@@ -17,6 +17,7 @@ router.register('maintreqs', views.MaintenanceRequestViewSet)
 router.register('complaints', views.ComplaintViewSet)
 router.register('foodorders', views.FoodOrderViewSet)
 router.register('packages', views.PackageViewSet)
+router.register('users', views.CustomUserViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

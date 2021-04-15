@@ -24,6 +24,12 @@ class CustomUserSerializer(serializers.ModelSerializer):
         model = models.CustomUser
         fields = ('email', 'password', 'first_name', 'last_name', 'phone_num')
 
+class CustomUserSerializerTwo(serializers.ModelSerializer):
+    class Meta:
+        model = models.CustomUser
+        fields = ('email', 'first_name', 'last_name', 'phone_num')
+
+
 class StudentCustomRegistrationSerializer(serializers.ModelSerializer):
     user = CustomUserSerializer(required=True)
     class Meta:

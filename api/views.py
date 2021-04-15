@@ -100,6 +100,19 @@ class ChefRegistrationViewSet(viewsets.ModelViewSet):
         )
 
 # General ViewSets
+class CustomUserViewSet(viewsets.ModelViewSet):
+    queryset = models.CustomUser.objects.all();
+    serializer_class = serializers.CustomUserSerializerTwo
+    http_method_names = ['get', 'patch', 'delete']
+
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return serializers.CustomUserSerializerTwo
+        if self.request.method == 'PATCH':
+            return serializers.CustomeUserSerializer
+        return serializers.CustomeUserSerializerTwo
+
+
 class StudentViewSet(viewsets.ModelViewSet):
     queryset = models.Student.objects.all()
     serializer_class = serializers.StudentSerializer
@@ -330,7 +343,7 @@ class ChefViewSet(viewsets.ModelViewSet):
 class BuildingViewSet(viewsets.ModelViewSet):
     queryset = models.Building.objects.all()
     serializer_class = serializers.BuildingSerializer
-    http_method_names = ['get', 'post', 'patch']
+    http_method_names = ['get', 'post', 'patch', 'delete']
 
     @action(detail=True, methods=['get', 'post'])
     def rooms(self, request, pk=None):
@@ -372,7 +385,7 @@ class BuildingViewSet(viewsets.ModelViewSet):
 class RoomViewSet(viewsets.ModelViewSet):
     queryset = models.Room.objects.all()
     serializer_class = serializers.RoomSerializer
-    http_method_names = ['get', 'patch']
+    http_method_names = ['get', 'patch', 'delete']
 
     def get_serializer_class(self):
         if self.request.method == 'GET':
@@ -406,7 +419,7 @@ class RoomViewSet(viewsets.ModelViewSet):
 class MaintenanceRequestViewSet(viewsets.ModelViewSet):
     queryset = models.MaintenanceRequest.objects.all()
     serializer_class = serializers.MaintenanceRequestSerializer
-    http_method_names = ['get', 'patch', 'post']
+    http_method_names = ['get', 'patch', 'post', 'delete']
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
@@ -436,10 +449,31 @@ class MaintenanceRequestViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
+    def get_queryset(self):
+        if self.request.method == 'GET':
+            maintreqs = models.MaintenanceRequest.objects.all()
+            resolved = self.request.GET.get('resolved', None)
+
+            if resolved == 'true' or resolved == 'True':
+                resolved = True
+            elif resolved == 'false' or resolved == 'False':
+                resolved = False
+            else:
+                resolved = ' '
+
+            if resolved == True:
+                maintreqs = maintreqs.filter(status='RESOLVED')
+            if resolved == False:
+                maintreqs = maintreqs.filter(status='UNRESOLVED')
+            
+            return maintreqs
+
+        return models.MaintenanceRequest.objects.all()
+
 class ComplaintViewSet(viewsets.ModelViewSet):
     queryset = models.Complaint.objects.all()
     serializer_class = serializers.ComplaintSerializer
-    http_method_names = ['get', 'patch', 'post']
+    http_method_names = ['get', 'patch', 'post', 'delete']
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
@@ -450,10 +484,32 @@ class ComplaintViewSet(viewsets.ModelViewSet):
             return serializers.ComplaintPatchSerializer
         return serializers.ComplaintSerializer
 
+    def get_queryset(self):
+        if self.request.method == 'GET':
+            complaints = models.Complaint.objects.all()
+            resolved = self.request.GET.get('resolved', None)
+
+            if resolved == 'true' or resolved == 'True':
+                resolved = True
+            elif resolved == 'false' or resolved == 'False':
+                resolved = False
+            else:
+                resolved = ' '
+
+            if resolved == True:
+                complaints = complaints.filter(status='RESOLVED')
+            if resolved == False:
+                complaints = complaints.filter(status='UNRESOLVED')
+            
+            return complaints
+
+        return models.Complaint.objects.all()
+
+
 class FoodOrderViewSet(viewsets.ModelViewSet):
     queryset = models.FoodOrder.objects.all()
     serializer_class = serializers.FoodOrderSerializer
-    http_method_names = ['get', 'patch', 'post']
+    http_method_names = ['get', 'patch', 'post', 'delete']
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
@@ -467,5 +523,5 @@ class FoodOrderViewSet(viewsets.ModelViewSet):
 class PackageViewSet(viewsets.ModelViewSet):
     queryset = models.Package.objects.all()
     serializer_class = serializers.PackageSerializer
-    http_method_names = ['get', 'post']
+    http_method_names = ['get', 'post', 'delete']
 

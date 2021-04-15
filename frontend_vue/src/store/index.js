@@ -58,6 +58,7 @@ export default createStore({
           .then((response) => {
             const token = response.data.access;
             localStorage.setItem("token", token);
+            axios.defaults.headers.common["Authorization"] = "Bearer " + token;
             context.commit("successfulLogin", token);
             resolve(response);
           })
