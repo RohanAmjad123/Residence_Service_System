@@ -55,34 +55,64 @@
       </div>
       <div class="form-group">
         <div class="form-check m-2">
-          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="student" checked v-model="type">
-          <label class="form-check-label" for="exampleRadios1">
-            Student
-          </label>
+          <input
+            class="form-check-input"
+            type="radio"
+            name="exampleRadios"
+            id="exampleRadios1"
+            value="student"
+            checked
+            v-model="type"
+          />
+          <label class="form-check-label" for="exampleRadios1"> Student </label>
         </div>
         <div class="form-check m-2">
-          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="staff" v-model="type">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="exampleRadios"
+            id="exampleRadios2"
+            value="staff"
+            v-model="type"
+          />
           <label class="form-check-label" for="exampleRadios2">
             General Staff
           </label>
         </div>
         <div class="form-check m-2">
-          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="admin" v-model="type">
-          <label class="form-check-label" for="exampleRadios3">
-            Admin
-          </label>
+          <input
+            class="form-check-input"
+            type="radio"
+            name="exampleRadios"
+            id="exampleRadios3"
+            value="admin"
+            v-model="type"
+          />
+          <label class="form-check-label" for="exampleRadios3"> Admin </label>
         </div>
         <div class="form-check m-2">
-          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="technician" v-model="type">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="exampleRadios"
+            id="exampleRadios4"
+            value="technician"
+            v-model="type"
+          />
           <label class="form-check-label" for="exampleRadios4">
             Technician
           </label>
         </div>
         <div class="form-check m-2">
-          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios5" value="chef" v-model="type">
-          <label class="form-check-label" for="exampleRadios5">
-            Chef
-          </label>
+          <input
+            class="form-check-input"
+            type="radio"
+            name="exampleRadios"
+            id="exampleRadios5"
+            value="chef"
+            v-model="type"
+          />
+          <label class="form-check-label" for="exampleRadios5"> Chef </label>
         </div>
       </div>
       <div class="form-group" v-if="type == 'student'">
@@ -97,7 +127,7 @@
           </select>
         </div>
       </div>
-      <div class="form-group" v-if="type == 'admin'"> 
+      <div class="form-group" v-if="type == 'admin'">
         <label class="form-label m-2">Department</label>
         <input
           required
@@ -107,7 +137,7 @@
           class="form-control"
         />
       </div>
-      <div class="form-group" v-if="type == 'technician'"> 
+      <div class="form-group" v-if="type == 'technician'">
         <label class="form-label m-2">Specialization</label>
         <input
           required
@@ -117,7 +147,7 @@
           class="form-control"
         />
       </div>
-      <div class="form-group" v-if="type == 'chef'"> 
+      <div class="form-group" v-if="type == 'chef'">
         <label class="form-label m-2">Position</label>
         <input
           required
@@ -133,7 +163,7 @@
 </template>
 
 <script>
-import axios from "axios"
+import axios from "axios";
 
 export default {
   components: {},
@@ -153,82 +183,80 @@ export default {
   },
   methods: {
     register: function () {
-      let registerData = {}
-      if (this.type == 'student') {
+      let registerData = {};
+      if (this.type == "student") {
         registerData = {
           user: {
             email: this.email,
             password: this.password,
             first_name: this.firstName,
             last_name: this.lastName,
-            phone_num: this.phoneNum
+            phone_num: this.phoneNum,
           },
-          year_of_study: this.yearLevel
-        }
-      } else if (this.type == 'staff') {
+          year_of_study: this.yearLevel,
+        };
+      } else if (this.type == "staff") {
         registerData = {
           user: {
             email: this.email,
             password: this.password,
             first_name: this.firstName,
             last_name: this.lastName,
-            phone_num: this.phoneNum
-          }
-        }
-      } else if (this.type == 'admin') {
-        registerData = {
-          user: {
-            email: this.email,
-            password: this.password,
-            first_name: this.firstName,
-            last_name: this.lastName,
-            phone_num: this.phoneNum
+            phone_num: this.phoneNum,
           },
-          department: this.department
-        }
-      } else if (this.type == 'technician') {
+        };
+      } else if (this.type == "admin") {
         registerData = {
           user: {
             email: this.email,
             password: this.password,
             first_name: this.firstName,
             last_name: this.lastName,
-            phone_num: this.phoneNum
+            phone_num: this.phoneNum,
           },
-          specialization: this.specialization
-        }
-      } else if (this.type == 'chef') {
+          department: this.department,
+        };
+      } else if (this.type == "technician") {
         registerData = {
           user: {
             email: this.email,
             password: this.password,
             first_name: this.firstName,
             last_name: this.lastName,
-            phone_num: this.phoneNum
+            phone_num: this.phoneNum,
           },
-          position: this.position
-        }
+          specialization: this.specialization,
+        };
+      } else if (this.type == "chef") {
+        registerData = {
+          user: {
+            email: this.email,
+            password: this.password,
+            first_name: this.firstName,
+            last_name: this.lastName,
+            phone_num: this.phoneNum,
+          },
+          position: this.position,
+        };
       }
-      let url = "register/" + this.type + "/" 
+      let url = "register/" + this.type + "/";
 
       let loginData = {
         email: this.email,
-        password: this.password
-      }
+        password: this.password,
+      };
 
       axios
         .post(url, registerData)
         .then(() => {
-          this.$store
-            .dispatch("login", loginData)
-            .then(() => {
-              this.$router.push("/dashboard")
-            })
+          this.$store.dispatch("login", loginData).then(() => {
+            this.$router.push("/dashboard");
+          });
         })
         .catch((error) => {
-          console.log('it did not work')
-          console.log(error)
-        })
+          console.log("it did not work");
+          console.log(error);
+        });
     },
   },
 };

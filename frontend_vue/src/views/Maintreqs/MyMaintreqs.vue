@@ -1,6 +1,8 @@
 <template>
   <div class="My Maintreqs">
-    <h1 v-if="['student', 'technician'].includes(userRole)">My Maintenance Requests</h1>
+    <h1 v-if="['student', 'technician'].includes(userRole)">
+      My Maintenance Requests
+    </h1>
     <h1 v-if="['admin'].includes(userRole)">Manage Maintenance Requests</h1>
     <makeMaintreqButton
       class="btn btn-danger m-3 mb-4"

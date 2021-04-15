@@ -21,17 +21,13 @@
       </router-link>
       <router-link
         to="MyMaintreqs"
-        v-if="
-          isLoggedIn && ['student', 'technician'].includes(userRole)
-        "
+        v-if="isLoggedIn && ['student', 'technician'].includes(userRole)"
         class="navbar-brand"
         >My Maintenance Requests
       </router-link>
       <router-link
         to="MyMaintreqs"
-        v-if="
-          isLoggedIn && ['admin'].includes(userRole)
-        "
+        v-if="isLoggedIn && ['admin'].includes(userRole)"
         class="navbar-brand"
         >Manage Maintenance Requests
       </router-link>
@@ -65,9 +61,9 @@
         class="navbar-brand"
         >Manage Packages
       </router-link>
-      <router-link 
-        to="ManageRooms" 
-        v-if="isLoggedIn && ['staff', 'admin'].includes(userRole)" 
+      <router-link
+        to="ManageRooms"
+        v-if="isLoggedIn && ['staff', 'admin'].includes(userRole)"
         class="navbar-brand"
         >Manage Rooms
       </router-link>
