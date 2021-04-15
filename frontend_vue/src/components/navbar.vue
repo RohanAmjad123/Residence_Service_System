@@ -72,16 +72,24 @@
         >Manage Rooms
       </router-link>
     </div>
-    <logoutButton
-      v-if="isLoggedIn"
-      class="btn btn-secondary navbar-brand ml-3 px-3"
-    />
-    <router-link
-      to="Login"
-      v-if="!isLoggedIn"
-      class="btn btn-primary navbar-brand ml-3 px-3"
-      >Login</router-link
-    >
+    <div class="d-flex flex-row px-4">
+      <logoutButton
+        v-if="isLoggedIn"
+        class="btn btn-secondary navbar-brand ml-3 px-3"
+      />
+      <router-link
+        to="Register"
+        v-if="!isLoggedIn"
+        class="btn btn-secondary navbar-brand ml-3 px-3"
+        >Register</router-link
+      >
+      <router-link
+        to="Login"
+        v-if="!isLoggedIn"
+        class="btn btn-primary navbar-brand ml-3 px-3"
+        >Login</router-link
+      >
+    </div>
   </div>
 </template>
 

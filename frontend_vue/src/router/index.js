@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import store from "@/store/index";
 import Login from "@/views/Login";
+import Register from "@/views/Register";
 import Home from "@/views/Home";
 import Dashboard from "@/views/Dashboard";
 import MyComplaints from "@/views/Complaints/MyComplaints";
@@ -17,6 +18,11 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login,
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: Register,
   },
   {
     path: "/home",
