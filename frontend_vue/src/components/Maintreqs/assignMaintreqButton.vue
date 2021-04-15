@@ -38,7 +38,7 @@ export default {
       let url = "maintreqs/" + this.requestID + "/";
       let data = {
         technician_id: user,
-        status: "IN PROGRESS"
+        status: "IN PROGRESS",
       };
       axios
         .patch(url, data)

@@ -14,10 +14,15 @@
     </td>
     <td
       v-if="
-        technicianID == null && status != 'RESOLVED' && ['admin'].includes(userRole)
+        technicianID == null &&
+        status != 'RESOLVED' &&
+        ['admin'].includes(userRole)
       "
     >
-      <assignMaintreqButton :maintreq="requestID" :technicians="this.technicians" />
+      <assignMaintreqButton
+        :maintreq="requestID"
+        :technicians="this.technicians"
+      />
     </td>
   </tr>
 </template>

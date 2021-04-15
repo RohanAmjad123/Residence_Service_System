@@ -16,17 +16,14 @@
       <router-link
         to="MyMaintreqs"
         v-if="
-          isLoggedIn &&
-          ['student', 'admin', 'staff', 'technician'].includes(userRole)
+          isLoggedIn && ['student', 'admin', 'technician'].includes(userRole)
         "
         class="navbar-brand"
         >My Maintenance Requests
       </router-link>
       <router-link
         to="MyFoodorders"
-        v-if="
-          isLoggedIn && ['student', 'admin', 'staff', 'chef'].includes(userRole)
-        "
+        v-if="isLoggedIn && ['student', 'admin', 'chef'].includes(userRole)"
         class="navbar-brand"
         >My Food Orders
       </router-link>

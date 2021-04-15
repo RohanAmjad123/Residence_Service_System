@@ -24,13 +24,13 @@
 </template>
 
 <script>
-import axios from "axios"
+import axios from "axios";
 
 export default {
   data() {
     return {
-      students: []
-    }
+      students: [],
+    };
   },
   mounted() {
     axios
@@ -39,22 +39,22 @@ export default {
         this.students = response.data;
       })
       .catch((error) => {
-        console.log(error)
-      })
+        console.log(error);
+      });
   },
   methods: {
     addPackage: function (user) {
       let data = {
-        student_id: user
-      }
+        student_id: user,
+      };
       axios
         .post("packages/", data)
         .then(() => {
-          this.$router.push("/mypackages")
+          this.$router.push("/mypackages");
         })
         .catch((error) => {
-          console.log(error)
-        })
+          console.log(error);
+        });
     },
   },
 };

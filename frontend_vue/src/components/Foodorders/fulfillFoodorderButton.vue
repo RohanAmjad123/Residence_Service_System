@@ -1,18 +1,20 @@
 <template>
   <div class="btn-group">
-    <button 
-      type="button" 
-      class="btn btn-success" 
+    <button
+      type="button"
+      class="btn btn-success"
       @click="fulfill"
-      v-if="status=='IN PROGRESS'"
-    >FULFILL
+      v-if="status == 'IN PROGRESS'"
+    >
+      FULFILL
     </button>
-    <button 
-      type="button" 
-      class="btn btn-warning" 
+    <button
+      type="button"
+      class="btn btn-warning"
       @click="start"
-      v-if="status=='UNFULFILLED'"
-    >START
+      v-if="status == 'UNFULFILLED'"
+    >
+      START
     </button>
   </div>
 </template>
@@ -26,7 +28,7 @@ export default {
   data() {
     return {
       orderID: this.foodorder,
-      orderStatus: this.status
+      orderStatus: this.status,
     };
   },
   methods: {

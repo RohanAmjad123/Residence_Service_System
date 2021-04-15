@@ -14,11 +14,11 @@
 </template>
 
 <script>
-import fulfillFoodorderButton from "@/components/Foodorders/fulfillFoodorderButton"
+import fulfillFoodorderButton from "@/components/Foodorders/fulfillFoodorderButton";
 
 export default {
   components: {
-    fulfillFoodorderButton
+    fulfillFoodorderButton,
   },
   props: ["foodorder"],
   data() {

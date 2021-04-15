@@ -38,7 +38,7 @@ export default {
     return {
       maintreqs: [],
       url: "",
-      technicians: []
+      technicians: [],
     };
   },
   mounted() {
@@ -66,7 +66,7 @@ export default {
       axios
         .get("technicians/")
         .then((response) => {
-          console.log(response)
+          console.log(response);
           this.technicians = response.data;
         })
         .catch((error) => {
