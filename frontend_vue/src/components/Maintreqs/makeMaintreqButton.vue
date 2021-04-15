@@ -6,7 +6,7 @@
 export default {
   methods: {
     makeMaintreq: function () {
-      this.$router.push("/mymaintreqs");
+      this.$router.push("/make-maintreq");
     },
   },
 };
