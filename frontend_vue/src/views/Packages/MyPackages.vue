@@ -1,6 +1,7 @@
 <template>
   <div class="My Packages">
-    <h1>My Packages</h1>
+    <h1 v-if="['student'].includes(userRole)">My Packages</h1>
+    <h1 v-if="['staff', 'admin'].includes(userRole)">Manage Packages</h1>
     <addPackageButton
       class="btn btn-danger m-3 mb-4"
       v-if="['staff', 'admin'].includes(userRole)"

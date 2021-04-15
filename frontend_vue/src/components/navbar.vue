@@ -9,33 +9,68 @@
       </router-link>
       <router-link
         to="MyComplaints"
-        v-if="isLoggedIn && ['student', 'admin', 'staff'].includes(userRole)"
+        v-if="isLoggedIn && ['student', 'staff'].includes(userRole)"
         class="navbar-brand"
         >My Complaints
       </router-link>
       <router-link
+        to="MyComplaints"
+        v-if="isLoggedIn && ['admin'].includes(userRole)"
+        class="navbar-brand"
+        >Manage Complaints
+      </router-link>
+      <router-link
         to="MyMaintreqs"
         v-if="
-          isLoggedIn && ['student', 'admin', 'technician'].includes(userRole)
+          isLoggedIn && ['student', 'technician'].includes(userRole)
         "
         class="navbar-brand"
         >My Maintenance Requests
       </router-link>
       <router-link
+        to="MyMaintreqs"
+        v-if="
+          isLoggedIn && ['admin'].includes(userRole)
+        "
+        class="navbar-brand"
+        >Manage Maintenance Requests
+      </router-link>
+      <router-link
         to="MyFoodorders"
-        v-if="isLoggedIn && ['student', 'admin', 'chef'].includes(userRole)"
+        v-if="isLoggedIn && ['student'].includes(userRole)"
         class="navbar-brand"
         >My Food Orders
       </router-link>
       <router-link
+        to="MyFoodorders"
+        v-if="isLoggedIn && ['chef'].includes(userRole)"
+        class="navbar-brand"
+        >Manage Food Orders
+      </router-link>
+      <router-link
+        to="MyFoodorders"
+        v-if="isLoggedIn && ['admin'].includes(userRole)"
+        class="navbar-brand"
+        >Food Orders
+      </router-link>
+      <router-link
         to="MyPackages"
-        v-if="isLoggedIn && ['student', 'admin', 'staff'].includes(userRole)"
+        v-if="isLoggedIn && ['student'].includes(userRole)"
         class="navbar-brand"
         >My Packages
       </router-link>
-      <router-link to="ManageRooms" v-if="isLoggedIn" class="navbar-brand"
-        >Manage Rooms</router-link
-      >
+      <router-link
+        to="MyPackages"
+        v-if="isLoggedIn && ['staff', 'admin'].includes(userRole)"
+        class="navbar-brand"
+        >Manage Packages
+      </router-link>
+      <router-link 
+        to="ManageRooms" 
+        v-if="isLoggedIn && ['staff', 'admin'].includes(userRole)" 
+        class="navbar-brand"
+        >Manage Rooms
+      </router-link>
     </div>
     <logoutButton
       v-if="isLoggedIn"
