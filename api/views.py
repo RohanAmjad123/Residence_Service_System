@@ -409,7 +409,7 @@ class RoomViewSet(viewsets.ModelViewSet):
             if empty == True or empty == False:
                 queryset = queryset.filter(student_id__isnull=empty)
             
-            if sort_by is [f.name for f in models.Room._meta.fields]:
+            if sort_by is [f.name for f in models.Room._meta.fields] or (sort_by in ['building_id', 'building_location', 'year_level']):
                 queryset = queryset.order_by(sort_by)
             
             return queryset

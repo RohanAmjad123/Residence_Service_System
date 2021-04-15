@@ -29,7 +29,6 @@ class CustomUserSerializerTwo(serializers.ModelSerializer):
         model = models.CustomUser
         fields = ('email', 'first_name', 'last_name', 'phone_num')
 
-
 class StudentCustomRegistrationSerializer(serializers.ModelSerializer):
     user = CustomUserSerializer(required=True)
     class Meta:
@@ -179,6 +178,10 @@ class BuildingSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class RoomSerializer(serializers.ModelSerializer):
+    building_name = serializers.CharField(source='building_id.building_name')
+    building_location = serializers.CharField(source='building_id.location')
+    year_level = serializers.IntegerField(source='building_id.year_level')
+    
     class Meta:
         model = models.Room
         fields = '__all__'
