@@ -7,11 +7,19 @@
     <td>{{ submissionDate }}</td>
     <td>{{ dateFulfilled }}</td>
     <td>{{ status }}</td>
+    <td v-if="status != 'FULFILLED' && ['chef'].includes(userRole)">
+      <fulfillFoodorderButton :foodorder="orderID" :status="status" />
+    </td>
   </tr>
 </template>
 
 <script>
+import fulfillFoodorderButton from "@/components/Foodorders/fulfillFoodorderButton"
+
 export default {
+  components: {
+    fulfillFoodorderButton
+  },
   props: ["foodorder"],
   data() {
     return {
@@ -23,6 +31,11 @@ export default {
       dateFulfilled: this.foodorder.date_time_fulfilled,
       status: this.foodorder.status,
     };
+  },
+  computed: {
+    userRole: function () {
+      return this.$store.state.role;
+    },
   },
 };
 </script>

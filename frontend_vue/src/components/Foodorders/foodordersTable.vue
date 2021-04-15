@@ -9,6 +9,7 @@
         <th>Submission Date</th>
         <th>Date Fulfilled</th>
         <th>Status</th>
+        <th v-if="['chef'].includes(userRole)"></th>
       </tr>
     </thead>
     <tbody>
@@ -41,8 +42,6 @@ export default {
 
     if (role == "student") {
       this.url = "students/" + userID + "/foodorders/";
-    } else if (role == "chef") {
-      this.url = "chefs/" + userID + "/foodorders/";
     } else {
       this.url = "foodorders/";
     }
@@ -55,6 +54,11 @@ export default {
       .catch((error) => {
         console.log(error);
       });
+  },
+  computed: {
+    userRole: function () {
+      return this.$store.state.role;
+    },
   },
 };
 </script>
