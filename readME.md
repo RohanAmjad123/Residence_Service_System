@@ -37,7 +37,7 @@ Once all Node dependencies are installed, you can start the Vue client using: `n
 ## **Testing the backend and frontend**
 *Note: This app uses JWT authentication and all API andpoints except api/register are protected, ensure you are sending a valid JWT in your HTTP request header to perform any requests, otherwise all requests will be blocked*
 
-*Note: This app is protected with CORS, ensure your frontend client is whitelisted in CORS_WHITELIST in settings.py in order to access the access the API from external clients*
+*Note: This app is protected with CORS, ensure your frontend client is whitelisted in CORS_ORIGIN_ WHITELIST in ***Residence_Service_System/settings.py*** in order to access the access the API from external clients*
 
 *Note: Postman Desktop client is required to send requests through Postman*
 
